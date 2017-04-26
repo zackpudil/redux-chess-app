@@ -1,7 +1,8 @@
 import assert from 'assert';
 import sinon from 'sinon';
 import * as board from '../chess/board';
-import subject, { HIGHLIGHT_SQUARE, CLEAR_HIGHLIGHTS, INIT_SQUARES, SELECT_SQUARE } from './squares';
+import { NO_PIECE_ID, WHITE } from './pieces';
+import subject, { HIGHLIGHT_SQUARE, CLEAR_HIGHLIGHTS, INIT_SQUARES, SELECT_SQUARE, ADD_PIECE, REMOVE_PIECE } from './squares';
 
 describe('squares', () => {
 	it('should exist.', () => assert.notEqual(subject, undefined));
@@ -81,13 +82,49 @@ describe('squares', () => {
 
 			let test = subject(state, { type: SELECT_SQUARE, squareId: '2'});
 
+			assert.notEqual(state, test);
 			assert.deepEqual(test.sort(),
 				[
 					{ id: '1', selected: false},
 					{ id: '2', selected: true},
 					{ id: '3', selected: false}
 				].sort());
+		});
+	});
 
+	describe('add piece', () => {
+		it('should add passed pieceId to square.', () => {
+			let state =  [
+				{ id: '1' },
+				{ id: '2' }
+			];
+
+			let test = subject(state, { type: ADD_PIECE, squareId: '1', pieceId: 'test', color:  WHITE});
+
+			assert.notEqual(state, test);
+			assert.deepEqual(test.sort(),
+				[
+					{ id: '1', pieceId: 'test', color: WHITE },
+					{ id: '2' }
+				].sort());
+		});
+	});
+
+	describe('remove piece', () => {
+		it('should replace pieceId property with NO_PIECE_ID.', () => {
+			let state = [
+				{ id: '1', pieceId: 't' },
+				{ id: '2', pieceId: 'e' }
+			];
+
+			let test = subject(state, { type: REMOVE_PIECE, squareId: '2' });
+
+			assert.notEqual(state, test);
+			assert.deepEqual(test.sort(),
+				[
+					{ id: '1', pieceId: 't' },
+					{ id: '2', pieceId: NO_PIECE_ID }
+				].sort());
 		});
 	});
 });

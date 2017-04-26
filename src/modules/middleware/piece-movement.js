@@ -1,5 +1,5 @@
-import { ROUTE_PIECE } from '../pieces';
-import { highlightSquare, selectSquare, clearHighlights } from '../squares';
+import { ROUTE_PIECE, MOVE_PIECE } from '../pieces';
+import { highlightSquare, selectSquare, clearHighlights, addPiece, removePiece } from '../squares';
 import moveEngine from '../../chess/move-engine';
 
 export default store => next => action => {
@@ -10,6 +10,17 @@ export default store => next => action => {
 			squares.forEach(s => next(highlightSquare(s)));
 			next(selectSquare(action.squareId));
 			break;
+		case MOVE_PIECE:
+			let state = store.getState();
+
+			let selectedSquare = state.find(s => s.selected);
+			let moveSquare = state.find(s => s.id === action.toSquareId);
+
+			if(!selectedSquare || !moveSquare.highlighted) return;
+
+			next(clearHighlights());
+			next(addPiece(action.toSquareId, selectedSquare.pieceId));
+			next(removePiece(selectedSquare.id));
 		default:
 			next(action);
 	} 

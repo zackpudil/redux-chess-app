@@ -1,17 +1,20 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {initSquares} from '../modules/squares';
-import {routePiece, BLACK} from '../modules/pieces';
+import {routePiece, movePiece, BLACK, NO_PIECE_ID} from '../modules/pieces';
 
 export const Square = (props) => {
 	let pieceClick = () => {
-			props.routeOnClick(props.id, props.pieceId);
+		if(props.pieceId === NO_PIECE_ID)
+			props.movePiece(props.id);
+		else
+			props.routePiece(props.id, props.pieceId);
 	};
 
 	let squareClass = props.highlighted ? "highlighted" : "";
 	squareClass += props.selected ? "selected" : "";
 
-	let pieceClass = props.pieceId === "_" ? "" : props.color === BLACK ? 'black' : 'white';
+	let pieceClass = props.pieceId === NO_PIECE_ID ? "" : props.color === BLACK ? 'black' : 'white';
 	return (
 		<div className={squareClass}> 
 			<a href="javascript:void(0)" className={pieceClass}
@@ -28,7 +31,9 @@ class Board extends React.Component {
 	render() {
 		return (
 			<div className="board">
-				{this.props.squares.map((s, i) => <Square {...s} key={i} routeOnClick={this.props.routeOnClick} />)}
+				{this.props.squares.map((s, i) => <Square key={i} {...s} 
+					routePiece={this.props.routePiece} 
+					movePiece={this.props.movePiece} />)}
 			</div>
 		);
 	}
@@ -36,6 +41,6 @@ class Board extends React.Component {
 
 export default connect(
 	(state = []) => ({ squares: state }), 
-	{ routeOnClick: routePiece, initSquares})(Board);
+	{ routePiece, movePiece, initSquares})(Board);
 
 
