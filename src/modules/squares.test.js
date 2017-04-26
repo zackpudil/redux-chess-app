@@ -1,7 +1,7 @@
 import assert from 'assert';
 import sinon from 'sinon';
 import * as board from '../chess/board';
-import subject, { HIGHLIGHT_SQUARE, CLEAR_HIGHLIGHTS, INIT_SQUARES } from './squares';
+import subject, { HIGHLIGHT_SQUARE, CLEAR_HIGHLIGHTS, INIT_SQUARES, SELECT_SQUARE } from './squares';
 
 describe('squares', () => {
 	it('should exist.', () => assert.notEqual(subject, undefined));
@@ -32,9 +32,9 @@ describe('squares', () => {
 
 			assert.deepEqual(test.sort(),
 				[
-					{ id: '1', highlighted: false},
-					{ id: '2', highlighted: false},
-					{ id: '3', highlighted: false}
+					{ id: '1', highlighted: false, selected: false},
+					{ id: '2', highlighted: false, selected: false},
+					{ id: '3', highlighted: false, selected: false}
 				].sort());
 		});
 	});
@@ -68,6 +68,26 @@ describe('squares', () => {
 
 			assert(board.initBoard.called);
 			assert(board.toState.calledWith({ state: 'new' }));
+		});
+	});
+
+	describe('select square', () => {
+		it('should set select property to true.', () => {
+			let state = [
+				{ id: '1', selected: false},
+				{ id: '2', selected: false},
+				{ id: '3', selected: false}
+			];
+
+			let test = subject(state, { type: SELECT_SQUARE, squareId: '2'});
+
+			assert.deepEqual(test.sort(),
+				[
+					{ id: '1', selected: false},
+					{ id: '2', selected: true},
+					{ id: '3', selected: false}
+				].sort());
+
 		});
 	});
 });

@@ -24,15 +24,20 @@ describe('pieceMovement', () => {
 			let next = sinon.spy();
 			sinon.stub(chess.default, 'p').returns(['a1', 'b1', 'c4']); 
 			sinon.spy(squares, 'highlightSquare');
+			sinon.spy(squares, 'selectSquare');
+			sinon.spy(squares, 'clearHighlights');
 
 			subject()(next)(action);
 
 			assert(chess.default.p.calledWith('t1'));
+			assert(squares.clearHighlights.called);
 			assert(squares.highlightSquare.calledWith('a1'));
 			assert(squares.highlightSquare.calledWith('b1'));
 			assert(squares.highlightSquare.calledWith('c4'));
+			assert(squares.selectSquare.calledWith('t1'));
 
-			assert.equal(next.callCount, 3);
+
+			assert.equal(next.callCount, 5);
 		});
 	});
 });
