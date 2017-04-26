@@ -1,0 +1,66 @@
+body {
+    margin: 0px;
+    font-size: 1.2em;
+}
+ul {
+    margin: 0px;
+    margin-left: 15px;
+    padding: 0px;
+}
+
+li {
+    padding: 5px;
+    margin-left: 15px;
+}
+
+div.board {
+	margin: 10px;
+	width: 448px;
+}
+
+div.board div {
+	width: 50px;
+	height: 50px;
+	outline: 1px solid;
+	float: left;
+}
+
+div.board div:nth-child(16n+1),
+div.board div:nth-child(16n+3),
+div.board div:nth-child(16n+5),
+div.board div:nth-child(16n+7),
+div.board div:nth-child(16n+10),
+div.board div:nth-child(16n+12),
+div.board div:nth-child(16n+14),
+div.board  div:nth-child(16n+16) { 
+	background-color: black;
+}
+
+div.board div a {
+	display: inline-block;
+	margin: 10px 15px 15px 10px;
+	padding: 5px 10px 5px 10px;
+	border-radius: 70px;
+}
+
+div.board div a.white {
+	border: 1px solid black;
+	color: black;
+	background-color: white;
+}
+
+
+div.board div a.black {
+	border: 1px solid white;
+	background-color: black;
+	color: white;
+}
+
+
+div.board div.highlighted {
+	background-color: yellow;
+}
+
+div.board div.selected {
+	background-color: #7FFF00;
+}
