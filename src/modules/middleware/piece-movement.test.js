@@ -19,14 +19,16 @@ describe('pieceMovement', () => {
 
 	describe('Route action', () => {
 		beforeEach(() => {
-			sinon.stub(chess.default, 'p').returns(['a1', 'b1', 'c4']); 
+			sinon.stub(chess, 'default').returns({
+				p: () => ['a1', 'b1', 'c4']
+			}); 
 			sinon.spy(squares, 'highlightSquare');
 			sinon.spy(squares, 'selectSquare');
 			sinon.spy(squares, 'clearHighlights');
 		});
 
 		afterEach(() => {
-			chess.default.p.restore();
+			chess.default.restore();
 			squares.highlightSquare.restore();
 			squares.selectSquare.restore();
 			squares.clearHighlights.restore();
@@ -37,9 +39,8 @@ describe('pieceMovement', () => {
 
 			let next = sinon.spy();
 			
-			subject()(next)(action);
+			subject({ getState: () => [] })(next)(action);
 
-			assert(chess.default.p.calledWith('t1'));
 			assert(squares.clearHighlights.called);
 			assert(squares.highlightSquare.calledWith('a1'));
 			assert(squares.highlightSquare.calledWith('b1'));
@@ -94,7 +95,7 @@ describe('pieceMovement', () => {
 
 			subject(state)(next)(action);
 
-			assert(!squares.clearHighlights.called);
+			assert(squares.clearHighlights.called);
 			assert(!squares.addPiece.called);
 			assert(!squares.removePiece.called);
 		});
@@ -109,7 +110,7 @@ describe('pieceMovement', () => {
 
 			subject(state)(next)(action);
 
-			assert(!squares.clearHighlights.called);
+			assert(squares.clearHighlights.called);
 			assert(!squares.addPiece.called);
 			assert(!squares.removePiece.called);
 		});

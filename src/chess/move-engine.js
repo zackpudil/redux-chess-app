@@ -1,18 +1,19 @@
 import { WHITE, BLACK } from '../modules/pieces';
-import { letterToNumber, numberToLetter } from './board';
+import { letterToNumber, numberToLetter, fromState } from './board';
+import { enforceBoundary, enforceLatteralJump} from './rule-engine';
 
-const filterBadSquares = (squares) => squares.filter(s => !(s.x > 8 || s.x < 1 || s.y > 8 || s.y < 1));
 
-export const pawn = (x, y, white) => {
+export const pawn = (x, y, white, board) => {
+	var move;
 	if(white) {
-		if(y == 2) return [{ x, y: y + 1 }, { x, y: y + 2 }];
-		else if(y == 8) return [];
-		return [{ x, y: y + 1 }];
+		if(y == 2) move =[{ x, y: y + 1 }, { x, y: y + 2 }];
+		else move = [{ x, y: y + 1 }];
 	} else {
-		if(y == 7) return [{ x, y: y - 1 }, { x, y: y - 2}];
-		else if(y == 1) return [];
-		return [{ x, y: y - 1 }];
+		if(y == 7) move =[{ x, y: y - 1 }, { x, y: y - 2}];
+		else move = [{ x, y: y - 1 }];
 	}
+
+	return enforceLatteralJump({x, y}, enforceBoundary(move), board);
 };
 
 export const knight = (x, y) => {
@@ -27,7 +28,7 @@ export const knight = (x, y) => {
 		{ x: x + 2, y: y - 1 }
 	];
 
-	return filterBadSquares(squares);
+	return enforceBoundary(squares);
 };
 
 export const bishop = (x, y) => {
@@ -38,10 +39,11 @@ export const bishop = (x, y) => {
 		squares.push({ x: x + i, y: y + i });
 		squares.push({ x: x - i, y: y + i });
 	}
-	return filterBadSquares(squares);
+
+	return enforceBoundary(squares);
 };
 
-export const rook = (x, y) => {
+export const rook = (x, y, color, board) => {
 	let squares = [];
 	for(let i = 1; i <= 8; i++) {
 		squares.push({x, y: y - i});
@@ -50,14 +52,14 @@ export const rook = (x, y) => {
 		squares.push({x: x - i, y});
 	}
 
-	return filterBadSquares(squares);
+	return enforceLatteralJump({x, y}, enforceBoundary(squares), board);
 }
 
-export const queen = (x, y) => {
-	return rook(x, y).concat(bishop(x, y));
+export const queen = (x, y, color, board) => {
+	return rook(x, y, color, board).concat(bishop(x, y));
 };
 
-export const king = (x, y) => {
+export const king = (x, y, color, board) => {
 	let squares = [
 		{ x, y: y + 1 },
 		{ x, y: y - 1 },
@@ -69,29 +71,32 @@ export const king = (x, y) => {
 		{ x: x + 1, y: y + 1 }
 	];
 
-	return filterBadSquares(squares);
+	return enforceBoundary(squares);
 };
 
-const squareToCoords = (calc, color) => (square) => {
+const stateToLogicMap = (calc, color, board) => (square) => {
 	let [x, y] = square.split('');
 	x = letterToNumber[x];
 
-	let coords = calc(Number(x), Number(y), color === WHITE);
+	let coords = calc(Number(x), Number(y), color === WHITE, board);
 
 	return coords.map(c => numberToLetter[c.x] +  c.y);
 };
 
-export default {
-	'P': squareToCoords(pawn, WHITE),
-	'p': squareToCoords(pawn, BLACK),
-	'N': squareToCoords(knight, WHITE),
-	'n': squareToCoords(knight, BLACK),
-	'B': squareToCoords(bishop, WHITE),
-	'b': squareToCoords(bishop, BLACK),
-	'R': squareToCoords(rook, WHITE),
-	'r': squareToCoords(rook, BLACK),
-	'Q': squareToCoords(queen, WHITE),
-	'q': squareToCoords(queen, BLACK),
-	'K': squareToCoords(king, WHITE),
-	'k': squareToCoords(king, BLACK)
+export default (state) => {
+	let board = fromState(state);
+	return {
+		'P': stateToLogicMap(pawn, WHITE, board),
+		'p': stateToLogicMap(pawn, BLACK, board),
+		'N': stateToLogicMap(knight, WHITE, board),
+		'n': stateToLogicMap(knight, BLACK, board),
+		'B': stateToLogicMap(bishop, WHITE, board),
+		'b': stateToLogicMap(bishop, BLACK, board),
+		'R': stateToLogicMap(rook, WHITE, board),
+		'r': stateToLogicMap(rook, BLACK, board),
+		'Q': stateToLogicMap(queen, WHITE, board),
+		'q': stateToLogicMap(queen, BLACK, board),
+		'K': stateToLogicMap(king, WHITE, board),
+		'k': stateToLogicMap(king, BLACK, board)
+	}
 };

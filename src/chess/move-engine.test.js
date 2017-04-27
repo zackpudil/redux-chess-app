@@ -1,31 +1,49 @@
 import assert from 'assert';
+import sinon from 'sinon';
 import subject from './move-engine';
 
+import * as rules from './rule-engine';
+
 describe('moveEngine', () => {
+	beforeEach(() => {
+		sinon.stub(rules, 'enforceLatteralJump');
+		rules.enforceLatteralJump.callsFake((a, b, c) => b);
+	});
+
+	afterEach(() => {
+		rules.enforceLatteralJump.restore();
+	});
+
 	it('should exist', () => assert.notEqual(subject, undefined));
 
 	describe('pawn', () => {
-		it('should exist.', () => assert(subject.p && subject.P));
+		var p, P;
+		beforeEach(() => {
+			p = subject([]).p;
+			P = subject([]).P;
+		});
+
+		it('should exist.', () => assert(p && P));
 
 		it('should push pawn one square.', () => {
-			let testWhite = subject.P('a3');
-			let testBlack = subject.p('a6');
+			let testWhite = P('a3');
+			let testBlack = p('a6');
 
 			assert.equal(testWhite[0], 'a4');
 			assert.equal(testBlack[0], 'a5');
 		});
 
 		it('should move by two if on starting square.', () => {
-			let testWhite = subject.P('a2');
-			let testBlack = subject.p('c7');
+			let testWhite = P('a2');
+			let testBlack = p('c7');
 
 			assert.deepEqual(testWhite, ['a3', 'a4']);
 			assert.deepEqual(testBlack, ['c6', 'c5']);
 		});
 
 		it('should not move passed the board.', () => {
-			let testWhite = subject.P('a8');
-			let testBlack = subject.p('c1');
+			let testWhite = P('a8');
+			let testBlack = p('c1');
 
 			assert.equal(testWhite.length, 0);
 			assert.equal(testBlack.length, 0);
@@ -33,11 +51,17 @@ describe('moveEngine', () => {
 	});
 
 	describe('knight', () => {
-		it('should exist.', () => assert(subject.n && subject.N));
+		var n, N;
+		beforeEach(() => {
+			n = subject([]).n;
+			N = subject([]).N;
+		});
+
+		it('should exist.', () => assert(n && N));
 
 		it('should move in L shape around board.', () => {
-			let test = subject.N('e4');
-			let test2 = subject.n('e4');
+			let test = N('e4');
+			let test2 = n('e4');
 
 			assert.deepEqual(test.sort(), ['f2', 'd2', 'c3', 'g3', 'g5', 'c5', 'd6', 'f6'].sort());
 			assert.deepEqual(test2.sort(), ['f2', 'd2', 'c3', 'g3', 'g5', 'c5', 'd6', 'f6'].sort());
@@ -45,8 +69,8 @@ describe('moveEngine', () => {
 		});
 
 		it('should not move off board.', () => {
-			let test = subject.N('g1');
-			let test2 = subject.n('g1');
+			let test = N('g1');
+			let test2 = n('g1');
 
 			assert.deepEqual(test.sort(), ['f3', 'h3', 'e2'].sort());
 			assert.deepEqual(test2.sort(), ['f3', 'h3', 'e2'].sort());
@@ -54,11 +78,18 @@ describe('moveEngine', () => {
 	});
 
 	describe('biship', () => {
-		it('should exist.', () => assert(subject.b && subject.B));
+		var b, B;
+
+		beforeEach(() => {
+			b = subject([]).b;
+			B = subject([]).B;
+		});
+
+		it('should exist.', () => assert(b && B));
 
 		it('should move diagnal', () => {
-			let test = subject.b('f3');
-			let test2 = subject.B('f3');
+			let test = b('f3');
+			let test2 = B('f3');
 
 			assert.deepEqual(test.sort(),
 				[ 'e2', 'g2', 'g4', 'e4', 'd1', 'h1', 'h5', 'd5', 'c6', 'b7', 'a8' ].sort());
@@ -68,11 +99,18 @@ describe('moveEngine', () => {
 	});
 
 	describe('root', () => {
-		it('should exist.', () => assert(subject.r && subject.R));
+		var r, R;
+
+		beforeEach(() => {
+			r = subject([]).r;
+			R = subject([]).R;
+		});
+
+		it('should exist.', () => assert(r && R));
 
 		it('should move latterally.', () => {
-			let test = subject.r('f3');
-			let test2 = subject.R('f3');
+			let test = r('f3');
+			let test2 = R('f3');
 
 			assert.deepEqual(test.sort(),
 				[ 'f2','f4','g3','e3','f1','f5','h3','d3','f6','c3','f7','b3','f8','a3' ].sort())
@@ -83,11 +121,18 @@ describe('moveEngine', () => {
 	});
 
 	describe('king', () => {
-		it('should exist.', () => assert(subject.k && subject.K));
+		var k, K;
+
+		beforeEach(() => {
+			k = subject([]).k;
+			K = subject([]).K;
+		});
+
+		it('should exist.', () => assert(k && K));
 
 		it('should move one square in all directions.', () => {
-			let test = subject.k('f3');
-			let test2 = subject.K('f3');
+			let test = k('f3');
+			let test2 = K('f3');
 
 			assert.deepEqual(test.sort(),
 				['f2', 'f4', 'g2', 'g3', 'g4', 'e2', 'e3', 'e4'].sort());
@@ -98,11 +143,18 @@ describe('moveEngine', () => {
 	});
 
 	describe('queen', () => {
-		it('should exist.', () => assert(subject.q && subject.Q));
+		var q, Q;
+
+		beforeEach(() => {
+			q = subject([]).q;
+			Q = subject([]).Q;
+		});
+
+		it('should exist.', () => assert(q && Q));
 
 		it('should move like a bishop and rook together.', () => {
-			let test = subject.q('f3');
-			let test2 = subject.Q('f3');
+			let test = q('f3');
+			let test2 = Q('f3');
 
 			assert.deepEqual(test.sort(),
 				[ 'a3','a8','b3','b7','c3','c6','d1','d3','d5',
