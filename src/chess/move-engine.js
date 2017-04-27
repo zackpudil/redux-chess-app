@@ -1,6 +1,6 @@
 import { WHITE, BLACK } from '../modules/pieces';
 import { letterToNumber, numberToLetter, fromState } from './board';
-import { enforceBoundary, enforceLatteralJump} from './rule-engine';
+import { enforceBoundary, enforceLatteralJump, enforceDiagnalJump, enforceTakenSquare } from './rule-engine';
 
 
 export const pawn = (x, y, white, board) => {
@@ -13,10 +13,15 @@ export const pawn = (x, y, white, board) => {
 		else move = [{ x, y: y - 1 }];
 	}
 
-	return enforceLatteralJump({x, y}, enforceBoundary(move), board);
+	move = enforceBoundary(move);
+	move = enforceLatteralJump({x, y}, move, board);
+	move = enforceTakenSquare({x, y}, move, white, board);
+	move = enforceTakenSquare({x, y}, move, !white, board);
+
+	return move;
 };
 
-export const knight = (x, y) => {
+export const knight = (x, y, white, board) => {
 	let squares = [
 		{ x: x + 1, y: y + 2 },
 		{ x: x + 1, y: y - 2 },
@@ -28,10 +33,12 @@ export const knight = (x, y) => {
 		{ x: x + 2, y: y - 1 }
 	];
 
-	return enforceBoundary(squares);
+	squares = enforceBoundary(squares);
+	squares = enforceTakenSquare({x, y}, squares, white, board);
+	return squares;
 };
 
-export const bishop = (x, y) => {
+export const bishop = (x, y, white, board) => {
 	let squares = [];
 	for(let i = 1; i <= 8; i++) {
 		squares.push({ x: x - i, y: y - i });
@@ -40,10 +47,13 @@ export const bishop = (x, y) => {
 		squares.push({ x: x - i, y: y + i });
 	}
 
-	return enforceBoundary(squares);
+	squares = enforceBoundary(squares);
+	squares = enforceDiagnalJump({x, y}, squares, board);
+	squares = enforceTakenSquare({x, y}, squares, white, board);
+	return squares;
 };
 
-export const rook = (x, y, color, board) => {
+export const rook = (x, y, white, board) => {
 	let squares = [];
 	for(let i = 1; i <= 8; i++) {
 		squares.push({x, y: y - i});
@@ -52,14 +62,17 @@ export const rook = (x, y, color, board) => {
 		squares.push({x: x - i, y});
 	}
 
-	return enforceLatteralJump({x, y}, enforceBoundary(squares), board);
+	squares = enforceBoundary(squares);
+	squares = enforceLatteralJump({x, y}, squares, board);
+	squares = enforceTakenSquare({x, y}, squares, white, board);
+	return squares;
 }
 
 export const queen = (x, y, color, board) => {
 	return rook(x, y, color, board).concat(bishop(x, y));
 };
 
-export const king = (x, y, color, board) => {
+export const king = (x, y, white, board) => {
 	let squares = [
 		{ x, y: y + 1 },
 		{ x, y: y - 1 },
@@ -71,7 +84,9 @@ export const king = (x, y, color, board) => {
 		{ x: x + 1, y: y + 1 }
 	];
 
-	return enforceBoundary(squares);
+	squares = enforceBoundary(squares);
+	squares = enforceTakenSquare({x, y}, squares, white, board);
+	return squares;
 };
 
 const stateToLogicMap = (calc, color, board) => (square) => {

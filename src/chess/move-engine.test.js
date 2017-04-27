@@ -7,11 +7,18 @@ import * as rules from './rule-engine';
 describe('moveEngine', () => {
 	beforeEach(() => {
 		sinon.stub(rules, 'enforceLatteralJump');
-		rules.enforceLatteralJump.callsFake((a, b, c) => b);
+		sinon.stub(rules, 'enforceTakenSquare');
+		sinon.stub(rules, 'enforceDiagnalJump');
+
+		rules.enforceLatteralJump.callsFake((a, b) => b);
+		rules.enforceTakenSquare.callsFake((a, b) => b);
+		rules.enforceDiagnalJump.callsFake((a, b) => b);
 	});
 
 	afterEach(() => {
 		rules.enforceLatteralJump.restore();
+		rules.enforceTakenSquare.restore();
+		rules.enforceDiagnalJump.restore();
 	});
 
 	it('should exist', () => assert.notEqual(subject, undefined));
