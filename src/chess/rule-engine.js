@@ -34,15 +34,22 @@ export const enforceDiagnalJump = (startSquare, moveSquares, board) => {
 	let startIndex = toIndex([startSquare])[0];
 	let moveIndexes = toIndex(moveSquares);
 
-	let movesWithPiecesOnThem = moveIndexes.filter(mi => {
-		return board[mi.y][mi.x] !== NO_PIECE_ID;
-	});
+  let movesWithPiecesOnThem = moveIndexes.filter(mi => {
+    return board[mi.y][mi.x] !== NO_PIECE_ID;
+  });
 
-	let movesWithNoJumps = moveIndexes.filter(mi => {
-		return meetsLatteralCuttoff(mi, startIndex, movesWithPiecesOnThem, 'x');
-	});
+  let upperPieces = movesWithPiecesOnThem.filter(mwp => mwp.y > startIndex.y);
+  let lowerPieces = movesWithPiecesOnThem.filter(mwp => mwp.y < startIndex.y);
 
-	return fromIndex(movesWithNoJumps);
+  let lowerMoves = moveIndexes
+    .filter(mi => mi.y < startIndex.y)
+    .filter(mi => meetsLatteralCuttoff(mi, startIndex, lowerPieces, 'x'));
+
+  let upperMoves = moveIndexes
+    .filter(mi => mi.y > startIndex.y)
+    .filter(mi => meetsLatteralCuttoff(mi, startIndex, upperPieces, 'x'));
+
+  return fromIndex(lowerMoves.concat(upperMoves));
 };
 
 export const enforceTakenSquare = (startSquare, moveSquares, isWhite, board) => {

@@ -69,7 +69,7 @@ export const rook = (x, y, white, board) => {
 }
 
 export const queen = (x, y, color, board) => {
-	return rook(x, y, color, board).concat(bishop(x, y));
+	return rook(x, y, color, board).concat(bishop(x, y, color, board));
 };
 
 export const king = (x, y, white, board) => {

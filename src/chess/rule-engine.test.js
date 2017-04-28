@@ -60,11 +60,11 @@ describe('Rule Engine', () => {
 												 {x:1, y:5}, {x:2, y:4}, {x:1, y:2}];
 
 			let enforcedSquares = subject.enforceDiagnalJump({ x:3, y:3 }, moveSquares, board);
-
+    
 			assert.notEqual(moveSquares, enforcedSquares);
-			assert.deepEqual(enforcedSquares.sort(), [
-				{x:2, y:2}, {x:4, y:4}, {x:4, y:2}, {x:2, y:4}
-			].sort());
+			assert.deepEqual(enforcedSquares.sort(), [ 
+        { x: 2, y: 2 }, { x: 4, y: 2 }, { x: 4, y: 4 }, { x: 2, y: 4 } 
+      ]);
 		});
 
 		it('should not remove squares that are latterly below biship.', () => {
@@ -76,15 +76,19 @@ describe('Rule Engine', () => {
 				['_', '_', '_', '_', '_']
 			];
 
-			let moveSquares = [{x:1, y:1}, {x:2, y:2}, {x:4, y:4}, {x:4, y:2},
-												 {x:1, y:5}, {x:2, y:4}, {x:1, y:2}, { x:5, y: 5}];
+			let moveSquares = [
+        {x: 1, y: 5}, { x: 2, y: 4 }, { x: 4, y: 2 }, { x: 5, y: 1},
+        {x: 1, y: 1}, { x: 2, y: 2 }, { x: 4, y: 4 }, { x: 5, y: 5 }
+      ];
 
 			let enforcedSquares = subject.enforceDiagnalJump({ x:3, y:3}, moveSquares, board);
+      
 
 			assert.notEqual(moveSquares, enforcedSquares);
-			assert.deepEqual(enforcedSquares.sort(), 
-				[{x:1, y:1}, {x:2, y:2}, {x:4, y:4}, {x:4, y:2},
-					{x:1, y:5}, {x:2, y:4}, {x:1, y:2}, {x:5, y:5}]);
+			assert.deepEqual(enforcedSquares.sort(), [ 
+        { x: 4, y: 2 }, { x: 1, y: 1 }, { x: 2, y: 2 },
+        { x: 1, y: 5 }, { x: 2, y: 4 }, { x: 4, y: 4 }, { x: 5, y: 5 }
+      ]);
 		});
 	});
 
