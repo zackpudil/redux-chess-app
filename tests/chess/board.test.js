@@ -1,8 +1,8 @@
 import assert from 'assert';
 import sinon from 'sinon';
 
-import {WHITE, BLACK} from '../modules/pieces';
-import * as subject from './board';
+import {WHITE, BLACK} from '~/modules/pieces';
+import * as subject from '~/chess/board';
 
 describe('board', () => {
 	it('should exist.', () => assert.notEqual(subject, undefined));

@@ -1,8 +1,8 @@
 import assert from 'assert';
 import sinon from 'sinon';
-import subject from './move-engine';
+import subject from '~/chess/move-engine';
 
-import * as rules from './rule-engine';
+import * as rules from '~/chess/rule-engine';
 
 describe('moveEngine', () => {
 	beforeEach(() => {

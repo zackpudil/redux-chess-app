@@ -1,5 +1,5 @@
 import assert from 'assert';
-import * as subject from './rule-engine';
+import * as subject from '~/chess/rule-engine';
 
 describe('Rule Engine', () => {
 	describe('enforceBoundary', () => {

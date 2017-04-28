@@ -1,11 +1,11 @@
 import sinon from 'sinon';
 import assert from 'assert';
 
-import * as squares from '../squares';
-import * as chess from '../../chess/move-engine';
-import {ROUTE_PIECE, MOVE_PIECE} from '../pieces';
+import * as squares from '~/modules/squares';
+import * as chess from '~/chess/move-engine';
+import {ROUTE_PIECE, MOVE_PIECE} from '~/modules/pieces';
 
-import subject from './piece-movement';
+import subject from '~/modules/middleware/piece-movement';
 
 describe('pieceMovement', () => {
 	it('should exist.', () => assert.notEqual(subject, undefined));
