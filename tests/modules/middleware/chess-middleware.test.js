@@ -2,10 +2,10 @@ import sinon from 'sinon';
 import assert from 'assert';
 
 import * as squares from '~/modules/squares';
-import * as chess from '~/chess/move-engine';
+import * as chess from '~/chess/engine';
 import {ROUTE_PIECE, MOVE_PIECE} from '~/modules/pieces';
 
-import subject from '~/modules/middleware/piece-movement';
+import subject from '~/modules/middleware/chess-middleware';
 
 describe('pieceMovement', () => {
 	it('should exist.', () => assert.notEqual(subject, undefined));

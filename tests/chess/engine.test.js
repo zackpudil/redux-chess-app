@@ -1,10 +1,10 @@
 import assert from 'assert';
 import sinon from 'sinon';
-import subject from '~/chess/move-engine';
+import subject from '~/chess/engine';
 
-import * as rules from '~/chess/rule-engine';
+import * as rules from '~/chess/rules';
 
-describe('moveEngine', () => {
+describe('Engine', () => {
 	beforeEach(() => {
 		sinon.stub(rules, 'enforceLatteralJump');
 		sinon.stub(rules, 'enforceTakenSquare');

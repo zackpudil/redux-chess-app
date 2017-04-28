@@ -1,11 +1,11 @@
 import { combineReducers, createStore, compose, applyMiddleware } from 'redux';
-import pieceMovement from './modules/middleware/piece-movement';
+import chess from './modules/middleware/chess-middleware';
 import squares from './modules/squares';
 
 const rootReducer = squares;
 
 let composedMiddleware = compose(
-	applyMiddleware(pieceMovement)
+	applyMiddleware(chess)
 );
 
 if(window.__REDUX_DEVTOOLS_EXTENSION__) {

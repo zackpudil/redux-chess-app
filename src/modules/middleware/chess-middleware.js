@@ -1,12 +1,12 @@
 import { ROUTE_PIECE, MOVE_PIECE } from '../pieces';
 import { highlightSquare, selectSquare, clearHighlights, addPiece, removePiece } from '../squares';
-import moveEngine from '../../chess/move-engine';
+import engine from '~/chess/engine';
 
 export default store => next => action => {
 	switch(action.type) {
 		case ROUTE_PIECE:
 			next(clearHighlights());
-			let squares = moveEngine(store.getState())[action.pieceId](action.squareId);
+			let squares = engine(store.getState())[action.pieceId](action.squareId);
 			squares.forEach(s => next(highlightSquare(s)));
 			next(selectSquare(action.squareId));
 			break;

@@ -1,7 +1,7 @@
 import assert from 'assert';
-import * as subject from '~/chess/rule-engine';
+import * as subject from '~/chess/rules';
 
-describe('Rule Engine', () => {
+describe('Rules', () => {
 	describe('enforceBoundary', () => {
 		it('should exist.', () => assert.notEqual(subject.enforceBoundary, undefined));
 
