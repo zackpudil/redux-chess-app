@@ -3,6 +3,16 @@ import {connect} from 'react-redux';
 import {initSquares} from '../modules/squares';
 import {routePiece, movePiece, BLACK, NO_PIECE_ID} from '../modules/pieces';
 
+export const Piece = (props) => {
+  let pieceClass = props.pieceId === NO_PIECE_ID 
+    ? "" : props.color === BLACK ? 'black' : 'white';
+
+  return (
+    <a href="javascript:void(0)" className={pieceClass}
+      onClick={props.pieceClick}>{props.pieceId}</a>
+  );
+};
+
 export const Square = (props) => {
 	let pieceClick = () => {
 		if(props.pieceId === NO_PIECE_ID)
@@ -16,11 +26,9 @@ export const Square = (props) => {
     : "";
 	squareClass += props.selected ? "selected" : "";
 
-	let pieceClass = props.pieceId === NO_PIECE_ID ? "" : props.color === BLACK ? 'black' : 'white';
 	return (
 		<div className={squareClass}> 
-			<a href="javascript:void(0)" className={pieceClass}
-				onClick={pieceClick}>{props.pieceId}</a>
+      <Piece pieceId={props.pieceId} color={props.color}  pieceClick={pieceClick} />
 		</div>
 	);
 };
