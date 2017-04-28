@@ -61,6 +61,10 @@ div.board div.highlighted {
 	background-color: yellow;
 }
 
+div.board div.highlighted-red {
+  background-color: red;
+}
+
 div.board div.selected {
 	background-color: #7FFF00;
 }

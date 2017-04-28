@@ -11,7 +11,9 @@ export const Square = (props) => {
 			props.routePiece(props.id, props.pieceId);
 	};
 
-	let squareClass = props.highlighted ? "highlighted" : "";
+  let squareClass = props.highlighted 
+    ? props.pieceId === NO_PIECE_ID ? "highlighted" : "highlighted-red" 
+    : "";
 	squareClass += props.selected ? "selected" : "";
 
 	let pieceClass = props.pieceId === NO_PIECE_ID ? "" : props.color === BLACK ? 'black' : 'white';
