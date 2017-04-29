@@ -87,23 +87,27 @@ export const pawnCanTakeDiagnally = (startSquare, isWhite, board) => {
 };
 
 export const kingCastle = (isWhite, board) => {
-  if(isWhite) {
-    let kingIndex = toIndex([toCoord(WHITE_KING_SQUARE)])[0];
-    if(board[kingIndex.y][kingIndex.x] !== 'K') return [];
+  // check if king is on correct square.
+  let kingIndex = toIndex([toCoord(isWhite ? WHITE_KING_SQUARE : BLACK_KING_SQUARE)])[0];
+  if(board[kingIndex.y][kingIndex.x].toLowerCase() !== 'k') return [];
 
-    let moves = [];
-    if(board[kingIndex.y][0] === 'R') {
-      if([board[kingIndex.y][1], board[kingIndex.y][2]].filter(p => p !== NO_PIECE_ID).length === 0)
-        moves.push({x:1, y: kingIndex.y});
-    }
+  let moves = [];
+  let kingRow = board[kingIndex.y];
+  let hasPieceFilter = (p) => p !== NO_PIECE_ID;
 
-    if(board[kingIndex.y][7] === 'R') {
-      if([board[kingIndex.y][6], board[kingIndex.y][5], board[kingIndex.y][4]].filter(p => p !== NO_PIECE_ID).length === 0)
-        moves.push({x:5, y: kingIndex.y});
-    }
-
-    return fromIndex(moves);
+  // check queen side castle.
+  if(board[kingIndex.y][0].toLowerCase() === 'r') {
+    let piecesInWay = [kingRow[1], kingRow[2], kingRow[3]].filter(hasPieceFilter).length !== 0;
+    if(!piecesInWay) moves.push({ x: 2, y: kingIndex.y });
   }
+
+  // check king side castle.
+  if(board[kingIndex.y][7].toLowerCase() === 'r') {
+    let piecesInWay = [kingRow[6], kingRow[5]].filter(hasPieceFilter).length !== 0;
+    if(!piecesInWay) moves.push({ x: 6, y: kingIndex.y });
+  }
+
+  return fromIndex(moves);
 };
 
 export const enforceBoundary = (squares) => squares.filter(s => !(s.x > 8 || s.x < 1 || s.y > 8 || s.y < 1));

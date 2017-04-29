@@ -19,12 +19,12 @@ describe('board', () => {
 			let state = subject.toState(board);
 
 			assert.deepEqual(state.sort(), [
-				{ id: 'a1', pieceId: 'r', color: BLACK },
-				{ id: 'b1', pieceId: 'k', color: BLACK },
-				{ id: 'a2', pieceId: '_', color: BLACK },
-				{ id: 'b2', pieceId: 'K', color: WHITE },
-				{ id: 'a3', pieceId: 'q', color: BLACK },
-				{ id: 'b3', pieceId: 'Q', color: WHITE }
+				{ id: 'h1', pieceId: 'r', color: BLACK },
+				{ id: 'g1', pieceId: 'k', color: BLACK },
+				{ id: 'h2', pieceId: '_', color: BLACK },
+				{ id: 'g2', pieceId: 'K', color: WHITE },
+				{ id: 'h3', pieceId: 'q', color: BLACK },
+				{ id: 'g3', pieceId: 'Q', color: WHITE }
 			].sort());
 		});
 	});

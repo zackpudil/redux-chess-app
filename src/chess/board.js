@@ -33,7 +33,7 @@ export const toCoord = (square) => {
 export const toState = (board) => {
 	return board.map((r,i)  => r.map((c, j) => {
 		return {
-			id: numberToLetter['' + (j + 1)] + (i + 1),
+			id: numberToLetter['' + (9 - (j + 1))] + (i + 1),
 			pieceId: c,
 			color: c.toLowerCase() === c ? BLACK : WHITE
 		};
