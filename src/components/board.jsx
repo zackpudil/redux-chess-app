@@ -12,7 +12,7 @@ class Board extends React.Component {
 	render() {
 		return (
 			<div className="board">
-				{this.props.squares.map((s, i) => <Square key={i} {...s} 
+				{this.props.squares.slice().reverse().map((s, i) => <Square key={i} {...s} 
 					routePiece={this.props.routePiece} 
 					movePiece={this.props.movePiece} />)}
 			</div>
