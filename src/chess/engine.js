@@ -1,18 +1,22 @@
 import { WHITE, BLACK } from '../modules/pieces';
 import { letterToNumber, numberToLetter, fromState } from './board';
-import { enforceBoundary, enforceLatteralJump, enforceDiagnalJump, enforceTakenSquare } from './rules';
+import { enforceBoundary, enforceLatteralJump, 
+         enforceDiagnalJump, enforceTakenSquare,
+         pawnCanTakeDiagnally } from './rules';
 import * as mover from  './moves';
 
 
 export const pawn = (x, y, white, board) => {
-	let move = mover.pawn(x, y, white);
+	let moves = mover.pawn(x, y, white);
 
-	move = enforceBoundary(move);
-	move = enforceLatteralJump({x, y}, move, board);
-	move = enforceTakenSquare({x, y}, move, white, board);
-	move = enforceTakenSquare({x, y}, move, !white, board);
+	moves = enforceBoundary(moves);
+	moves = enforceLatteralJump({x, y}, moves, board);
+	moves = enforceTakenSquare({x, y}, moves, white, board);
+	moves = enforceTakenSquare({x, y}, moves, !white, board);
 
-	return move;
+  moves = moves.concat(pawnCanTakeDiagnally({x, y}, white, board));
+
+	return moves;
 };
 
 export const knight = (x, y, white, board) => {

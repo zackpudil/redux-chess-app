@@ -9,16 +9,19 @@ describe('Engine', () => {
 		sinon.stub(rules, 'enforceLatteralJump');
 		sinon.stub(rules, 'enforceTakenSquare');
 		sinon.stub(rules, 'enforceDiagnalJump');
+    sinon.stub(rules, 'pawnCanTakeDiagnally');
 
 		rules.enforceLatteralJump.callsFake((a, b) => b);
 		rules.enforceTakenSquare.callsFake((a, b) => b);
 		rules.enforceDiagnalJump.callsFake((a, b) => b);
+    rules.pawnCanTakeDiagnally.callsFake(() => []);
 	});
 
 	afterEach(() => {
 		rules.enforceLatteralJump.restore();
 		rules.enforceTakenSquare.restore();
 		rules.enforceDiagnalJump.restore();
+    rules.pawnCanTakeDiagnally.restore();
 	});
 
 	it('should exist', () => assert.notEqual(subject, undefined));

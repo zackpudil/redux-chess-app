@@ -62,4 +62,25 @@ export const enforceTakenSquare = (startSquare, moveSquares, isWhite, board) => 
 	}));
 }
 
+export const pawnCanTakeDiagnally = (startSquare, isWhite, board) => {
+  let startIndex = toIndex([startSquare])[0];
+  let moveIndexes = [];
+  let yAdd = isWhite ? 1 : - 1;
+  for(let i = -1; i <= 1; i+=2) {
+    let index = { x: startIndex.x + i, y: startIndex.y + yAdd };
+    let piece= board[index.y][index.x];
+
+    if(piece !== NO_PIECE_ID)
+      if(isWhite) {
+        if(piece.toLowerCase() === piece)
+          moveIndexes.push(index);
+      } else {
+        if(piece.toUpperCase() === piece)
+          moveIndexes.push(index);
+      }
+  }
+
+  return fromIndex(moveIndexes);
+};
+
 export const enforceBoundary = (squares) => squares.filter(s => !(s.x > 8 || s.x < 1 || s.y > 8 || s.y < 1));

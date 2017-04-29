@@ -108,4 +108,28 @@ describe('Rules', () => {
 			let enforcedSquares = subject.enforceTakenSquare({x: 1, y: 2}, moveSquares, false, board);
 		});
 	});
+
+  describe('pawn diagnal take', () => {
+    it('should exist.', () => assert.notEqual(subject.pawnCanTakeDiagnally, undefined));
+
+    it('should add squares that can be taken by black pawn.', () => {
+      let board = [
+        [ 'Q', '_', '_'],
+        [ '_', 'p', '_']
+      ];
+
+      let newSquares = subject.pawnCanTakeDiagnally({x:2, y:2}, false, board);
+      assert.deepEqual(newSquares, [{x:1, y:1}]);
+    });
+
+    it('should add squares that can be taken by white pawn.', () => {
+      let board = [
+        ['_', 'P', '_'],
+        ['q', '_', '_']
+      ];
+
+      let newSquares = subject.pawnCanTakeDiagnally({x:2, y:1}, true, board);
+      assert.deepEqual(newSquares, [{x:1, y:2}]);
+    });
+  });
 });
