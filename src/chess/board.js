@@ -8,16 +8,27 @@ export const numberToLetter = { '1': 'a', '2': 'b', '3': 'c', '4': 'd',
 
 export const initBoard = () => {
 	return [
-		['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R'],
+		['R', 'N', 'B', 'K', 'Q', 'B', 'N', 'R'],
 		['P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'],
 		['_', '_', '_', '_', '_', '_', '_', '_'],
 		['_', '_', '_', '_', '_', '_', '_', '_'],
 		['_', '_', '_', '_', '_', '_', '_', '_'],
 		['_', '_', '_', '_', '_', '_', '_', '_'],
 		['p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'],
-		['r', 'n', 'b', 'q', 'k', 'b', 'n', 'r']
+		['r', 'n', 'b', 'k', 'q', 'b', 'n', 'r']
 	];
 };
+
+export const toSquare = (coord) => {
+  return numberToLetter[coord.x] +  coord.y;
+};
+
+export const toCoord = (square) => {
+  let [x, y] = square.split('');
+	x = letterToNumber[x];
+
+  return { x: Number(x), y: Number(y) };
+}
 
 export const toState = (board) => {
 	return board.map((r,i)  => r.map((c, j) => {

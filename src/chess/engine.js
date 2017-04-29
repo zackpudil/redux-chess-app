@@ -1,8 +1,8 @@
 import { WHITE, BLACK } from '../modules/pieces';
-import { letterToNumber, numberToLetter, fromState } from './board';
+import { toSquare, toCoord, fromState } from './board';
 import { enforceBoundary, enforceLatteralJump, 
          enforceDiagnalJump, enforceTakenSquare,
-         pawnCanTakeDiagnally } from './rules';
+         pawnCanTakeDiagnally, kingCastle } from './rules';
 import * as mover from  './moves';
 
 
@@ -51,16 +51,14 @@ export const king = (x, y, white, board) => {
 	let moves = mover.king(x, y);
 	moves = enforceBoundary(moves);
 	moves = enforceTakenSquare({x, y}, moves, white, board);
+  moves = moves.concat(kingCastle(white, board));
 	return moves;
 };
 
 const stateToLogicMap = (calc, color, board) => (square) => {
-	let [x, y] = square.split('');
-	x = letterToNumber[x];
-
+	let {x, y} = toCoord(square);
 	let coords = calc(Number(x), Number(y), color === WHITE, board);
-
-	return coords.map(c => numberToLetter[c.x] +  c.y);
+	return coords.map(toSquare);
 };
 
 export default (state) => {

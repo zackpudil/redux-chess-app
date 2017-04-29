@@ -50,4 +50,26 @@ describe('board', () => {
 			].sort());
 		});
 	});
+
+  describe('toSquare', () => {
+    it('should exist.', () => assert.notEqual(subject.toSquare, undefined));
+
+    it('should map coord to square', () => {
+      let coords = [{ x: 1, y: 1 }, { x: 8, y: 8 }, { x: 4, y: 4}, { x: 2, y: 6 }];
+      let squares = coords.map(subject.toSquare);
+
+      assert.deepEqual(squares.sort(), ['a1', 'h8', 'd4', 'b6'].sort());
+    });
+  });
+
+  describe('toCoord', () => {
+    it('should exist.', () => assert.notEqual(subject.toCoord, undefined));
+
+    it('should map square to coord', () => {
+      let squares = ['a1', 'h8', 'd4', 'b6'];
+      let coords = squares.map(subject.toCoord);
+
+      assert.deepEqual(coords, [{x: 1, y: 1}, {x: 8, y: 8}, {x: 4, y:4}, {x:2, y:6}]);
+    });
+  });
 });

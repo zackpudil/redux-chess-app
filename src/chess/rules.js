@@ -1,4 +1,5 @@
-import {NO_PIECE_ID} from '../modules/pieces';
+import {NO_PIECE_ID, WHITE_KING_SQUARE, BLACK_KING_SQUARE} from '../modules/pieces';
+import {toCoord} from './board';
 
 const toIndex = (ms) => ms.map((m) => ({ x: m.x - 1, y: m.y - 1 }));
 const fromIndex = (mi) => mi.map((m) => ({x: m.x + 1, y: m.y + 1 }));
@@ -83,6 +84,26 @@ export const pawnCanTakeDiagnally = (startSquare, isWhite, board) => {
   }
 
   return fromIndex(moveIndexes);
+};
+
+export const kingCastle = (isWhite, board) => {
+  if(isWhite) {
+    let kingIndex = toIndex([toCoord(WHITE_KING_SQUARE)])[0];
+    if(board[kingIndex.y][kingIndex.x] !== 'K') return [];
+
+    let moves = [];
+    if(board[kingIndex.y][0] === 'R') {
+      if([board[kingIndex.y][1], board[kingIndex.y][2]].filter(p => p !== NO_PIECE_ID).length === 0)
+        moves.push({x:1, y: kingIndex.y});
+    }
+
+    if(board[kingIndex.y][7] === 'R') {
+      if([board[kingIndex.y][6], board[kingIndex.y][5], board[kingIndex.y][4]].filter(p => p !== NO_PIECE_ID).length === 0)
+        moves.push({x:5, y: kingIndex.y});
+    }
+
+    return fromIndex(moves);
+  }
 };
 
 export const enforceBoundary = (squares) => squares.filter(s => !(s.x > 8 || s.x < 1 || s.y > 8 || s.y < 1));

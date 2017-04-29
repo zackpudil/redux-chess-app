@@ -132,4 +132,67 @@ describe('Rules', () => {
       assert.deepEqual(newSquares, [{x:1, y:2}]);
     });
   });
+
+  describe('king can castle', () => {
+    it('should exist.', () => assert.notEqual(subject.kingCastle, undefined));
+
+    it('should not allow king to castle if king is not on home square.', () => {
+      let board = [
+        ['R', '_', '_', '_', '_', '_', 'N', 'R']
+      ];
+
+      let newSquares = subject.kingCastle(true, board);
+
+      assert.deepEqual(newSquares, []);
+    });
+
+    it('should not allow king to castle if pieces are in the way.', () => {
+      let board = [
+        ['R', '_', 'B', 'K', '_', '_', 'N', 'R']
+      ];
+
+      let newSquares = subject.kingCastle(true, board);
+
+      assert.deepEqual(newSquares, []);
+    });
+
+    it('should not allow king to castle if rook is not at home square.', () => {
+      let board = [
+        ['_', '_', '_', 'K', '_', '_', '_', '_']
+      ];
+
+      let newSquares = subject.kingCastle(true, board);
+
+      assert.deepEqual(newSquares, []);
+    });
+
+    it('should allow king to castle king side if no pieces are in the way and rook is at home square.', () => {
+      let board = [
+        ['R', '_', '_', 'K', 'Q', 'B', '_', 'R']
+      ];
+
+      let newSquares = subject.kingCastle(true, board);
+
+      assert.deepEqual(newSquares, [{ x: 2, y: 1}]);
+    });
+
+    it('should allow king to castle queen side if no pieces are in the way and rook is at home square.', () => {
+      let board = [
+        ['R', 'N', '_', 'K', '_', '_', '_', 'R']
+      ];
+
+      let newSquares = subject.kingCastle(true, board);
+
+      assert.deepEqual(newSquares, [{ x: 6, y: 1 }]);
+    });
+
+    it('should allow king to castle both sides if conditions are met.', () => {
+      let board = [
+        ['R', '_', '_', 'K', '_', '_', '_', 'R']
+      ];
+
+      let newSquares = subject.kingCastle(true, board);
+      assert.deepEqual(newSquares, [{ x: 2, y: 1}, { x: 6, y: 1}]);
+    });
+  });
 });

@@ -10,11 +10,13 @@ describe('Engine', () => {
 		sinon.stub(rules, 'enforceTakenSquare');
 		sinon.stub(rules, 'enforceDiagnalJump');
     sinon.stub(rules, 'pawnCanTakeDiagnally');
+    sinon.stub(rules, 'kingCastle');
 
 		rules.enforceLatteralJump.callsFake((a, b) => b);
 		rules.enforceTakenSquare.callsFake((a, b) => b);
 		rules.enforceDiagnalJump.callsFake((a, b) => b);
     rules.pawnCanTakeDiagnally.callsFake(() => []);
+    rules.kingCastle.callsFake(() => []);
 	});
 
 	afterEach(() => {
@@ -22,6 +24,7 @@ describe('Engine', () => {
 		rules.enforceTakenSquare.restore();
 		rules.enforceDiagnalJump.restore();
     rules.pawnCanTakeDiagnally.restore();
+    rules.kingCastle.restore();
 	});
 
 	it('should exist', () => assert.notEqual(subject, undefined));

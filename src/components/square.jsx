@@ -25,7 +25,7 @@ export const Square = (props) => {
 	squareClass += props.selected ? "selected" : "";
 
 	return (
-		<div className={squareClass}> 
+		<div id={props.id} className={squareClass}> 
       <Piece pieceId={props.pieceId} color={props.color}  pieceClick={pieceClick} />
 		</div>
 	);
