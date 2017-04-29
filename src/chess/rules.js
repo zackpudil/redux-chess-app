@@ -68,7 +68,9 @@ export const pawnCanTakeDiagnally = (startSquare, isWhite, board) => {
   let yAdd = isWhite ? 1 : - 1;
   for(let i = -1; i <= 1; i+=2) {
     let index = { x: startIndex.x + i, y: startIndex.y + yAdd };
-    let piece= board[index.y][index.x];
+
+    if(index.x > 7 || index.x < 0) continue;
+    let piece = board[index.y][index.x];
 
     if(piece !== NO_PIECE_ID)
       if(isWhite) {
