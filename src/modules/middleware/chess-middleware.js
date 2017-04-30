@@ -1,5 +1,6 @@
 import { ROUTE_PIECE, MOVE_PIECE } from '../pieces';
 import { highlightSquare, selectSquare, clearHighlights, addPiece, removePiece } from '../squares';
+import { analyzeBoard } from '../game';
 import engine from '~/chess/engine';
 
 export default store => next => action => {
@@ -15,14 +16,16 @@ export default store => next => action => {
 			let selectedSquare = state.find(s => s.selected);
 			let moveSquare = state.find(s => s.id === action.toSquareId);
 
-			if(!selectedSquare || !moveSquare.highlighted) { 
-				next(clearHighlights());
-				return;
-			}
+      if(!selectedSquare || !moveSquare.highlighted) { 
+        next(clearHighlights());
+        return;
+      }
 
-			next(clearHighlights());
-			next(addPiece(action.toSquareId, selectedSquare.pieceId));
-			next(removePiece(selectedSquare.id));
+      next(clearHighlights());
+      next(addPiece(action.toSquareId, selectedSquare.pieceId));
+      next(removePiece(selectedSquare.id));
+      next(analyzeBoard(selectedSquare.id, action.toSquareId, selectedSquare.pieceId));
+      break;
 		default:
 			next(action);
 	} 

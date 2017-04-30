@@ -1,4 +1,5 @@
-import {NO_PIECE_ID, WHITE_KING_SQUARE, BLACK_KING_SQUARE} from '../modules/pieces';
+import { NO_PIECE_ID } from '../modules/pieces';
+import { WHITE_KING_SQUARE, BLACK_KING_SQUARE } from '../modules/game';
 import {toCoord} from './board';
 
 const toIndex = (ms) => ms.map((m) => ({ x: m.x - 1, y: m.y - 1 }));

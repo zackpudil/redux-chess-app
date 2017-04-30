@@ -2,6 +2,7 @@ import sinon from 'sinon';
 import assert from 'assert';
 
 import * as squares from '~/modules/squares';
+import * as game from '~/modules/game';
 import * as chess from '~/chess/engine';
 import {ROUTE_PIECE, MOVE_PIECE} from '~/modules/pieces';
 
@@ -62,12 +63,14 @@ describe('pieceMovement', () => {
 			sinon.spy(squares, 'clearHighlights');
 			sinon.spy(squares, 'addPiece');
 			sinon.spy(squares, 'removePiece');
+      sinon.spy(game, 'analyzeBoard');
 		});
 
 		afterEach(() => {
 			squares.clearHighlights.restore();
 			squares.addPiece.restore();
 			squares.removePiece.restore();
+      game.analyzeBoard.restore();
 		});
 
 		it('should dispatch add/remove piece actions with currently selected square.', () => {
@@ -83,6 +86,7 @@ describe('pieceMovement', () => {
 			assert(squares.clearHighlights.called);
 			assert(squares.addPiece.calledWith('2', 'b'));
 			assert(squares.removePiece.calledWith('1'));
+      assert(game.analyzeBoard.calledWith('1', '2', 'b'));
 		});
 
 		it('should not dispatch any actions if no piece is selected.', () => {
@@ -98,6 +102,7 @@ describe('pieceMovement', () => {
 			assert(squares.clearHighlights.called);
 			assert(!squares.addPiece.called);
 			assert(!squares.removePiece.called);
+      assert(!game.analyzeBoard.called);
 		});
 
 		it('should not dispatch any actions if square is not highlighted.', () => {
@@ -113,6 +118,7 @@ describe('pieceMovement', () => {
 			assert(squares.clearHighlights.called);
 			assert(!squares.addPiece.called);
 			assert(!squares.removePiece.called);
+      assert(!game.analyzeBoard.called);
 		});
 	});
 });
