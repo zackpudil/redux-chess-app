@@ -9,7 +9,7 @@ import {ROUTE_PIECE, MOVE_PIECE, TAKE_PIECE} from '~/modules/pieces';
 
 import subject from '~/modules/middleware/chess-middleware';
 
-describe('pieceMovement', () => {
+describe('Chess middleware', () => {
 	it('should exist.', () => assert.notEqual(subject, undefined));
 
 	it('should just dispatch unsupported action.', () => {

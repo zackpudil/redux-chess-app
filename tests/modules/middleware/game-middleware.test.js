@@ -8,8 +8,16 @@ import * as analyze from '~/chess/analysis';
 
 import subject from '~/modules/middleware/game-middleware';
 
-describe('game middleware', () => {
+describe('Game middleware', () => {
   it('should exist.', () => assert.notEqual(subject, undefined));
+
+  it('should just dispatch unsupported action.', () => {
+		let next = sinon.spy();
+		subject()(next)({ type: 'test' });
+
+		assert(next.calledWith({ type: 'test' }));
+	});
+
 
   describe('analyze board', () => {
     var store = {}, action;

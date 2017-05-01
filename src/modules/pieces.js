@@ -5,6 +5,7 @@ export const NO_PIECE_ID = '_';
 export const ROUTE_PIECE = 'chess/piece/route';
 export const MOVE_PIECE = 'chess/piece/move';
 export const TAKE_PIECE = 'chess/piece/take';
+
 export const ADD_TAKEN_PIECE = 'chess/pieces/taken';
 
 export const routePiece = (squareId, pieceId) => ({

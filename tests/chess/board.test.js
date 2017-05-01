@@ -4,7 +4,7 @@ import sinon from 'sinon';
 import {WHITE, BLACK} from '~/modules/pieces';
 import * as subject from '~/chess/board';
 
-describe('board', () => {
+describe('Board', () => {
 	it('should exist.', () => assert.notEqual(subject, undefined));
 
 	describe('toState', () => {
