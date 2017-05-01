@@ -4,10 +4,12 @@ import gamem from './reducers/middleware/game-middleware';
 
 import squares from './reducers/squares';
 import pieces from './reducers/pieces';
+import game from './reducers/game';
 
 const rootReducer = combineReducers({
   squares: squares,
-  takenPieces: pieces
+  takenPieces: pieces,
+  game: game
 });
 
 let composedMiddleware = compose(

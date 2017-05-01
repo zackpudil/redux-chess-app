@@ -19,8 +19,9 @@ export const BLACK_R_AFTER_QUEEN_CASTLE = 'd8';
 
 export const CASTLE_KING_SIDE = 'chess/game/castle_king';
 export const CASTLE_QUEEN_SIDE = 'chess/game/castle_queen';
-
 export const ANALYZE_BOARD = 'chess/game/analyze';
+
+export const ADD_MOVE = 'chess/game/add_move';
 
 export const analyzeBoard = (fromSquare, toSquare, piece) => ({
   type: ANALYZE_BOARD,
@@ -29,12 +30,29 @@ export const analyzeBoard = (fromSquare, toSquare, piece) => ({
   piece
 });
 
-export const castleKingSide = (isWhite) => ({
-  type: CASTLE_KING_SIDE,
-  isWhite
+export const castleKingSide = (isWhite) => ({ type: CASTLE_KING_SIDE, isWhite });
+export const castleQueenSide = (isWhite) => ({ type: CASTLE_QUEEN_SIDE, isWhite });
+
+export const addMove = (pieceId, toSquareId, isTake) => ({
+  type: ADD_MOVE,
+  pieceId,
+  toSquareId,
+  isTake
 });
 
-export const castleQueenSide = (isWhite) => ({
-  type: CASTLE_QUEEN_SIDE,
-  isWhite
-});
+
+export default (state = { moves: [], whiteTurn: true }, action) => {
+  switch(action.type) {
+    case ADD_MOVE:
+      // to chess notation.
+      let move = '';
+      if(action.pieceId.toLowerCase() !== 'p') move += action.pieceId;
+      if(action.isTake) move += 'x';
+      move += action.toSquareId;
+
+      return Object.assign({}, state, { moves: [...state.moves, move] });
+      break;
+    default:
+      return state;
+  }
+};

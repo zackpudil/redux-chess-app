@@ -1,6 +1,6 @@
 import { ROUTE_PIECE, MOVE_PIECE, TAKE_PIECE, addTakenPiece } from '../pieces';
 import { highlightSquare, selectSquare, clearHighlights, addPiece, removePiece } from '../squares';
-import { analyzeBoard } from '../game';
+import { analyzeBoard, addMove } from '../game';
 import engine from '~/chess/engine';
 
 export default store => next => action => {
@@ -26,11 +26,13 @@ export default store => next => action => {
       if(action.type === MOVE_PIECE) {
         next(addPiece(action.toSquareId, selectedSquare.pieceId));
         next(removePiece(selectedSquare.id));
+        next(addMove(selectedSquare.pieceId, action.toSquareId, false));
       } else if(action.type === TAKE_PIECE) {
         next(removePiece(action.toSquareId));
         next(addPiece(action.toSquareId, selectedSquare.pieceId));
         next(removePiece(selectedSquare.id));
         next(addTakenPiece(moveSquare.pieceId, moveSquare.color));
+        next(addMove(selectedSquare.pieceId, action.toSquareId, true));
       }
 
       next(analyzeBoard(selectedSquare.id, action.toSquareId, selectedSquare.pieceId));
