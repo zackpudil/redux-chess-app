@@ -30,7 +30,7 @@ export const square = (state, action) => {
 	}
 };
 
-export default (state, action) => {
+export default (state = [], action) => {
 	switch(action.type) {
 		case INIT_SQUARES:
 			return toState(initBoard());

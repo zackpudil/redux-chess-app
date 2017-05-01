@@ -40,6 +40,7 @@ export default store => next => action => {
         next(removePiece(BLACK_Q_ROOK_SQUARE));
         next(addPiece(BLACK_R_AFTER_QUEEN_CASTLE, 'r'));
       }
+      break;
     default:
       next(action);
   }

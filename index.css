@@ -16,6 +16,7 @@ li {
 div.board {
 	margin: 10px;
 	width: 448px;
+  overflow: auto;
 }
 
 div.board div {
@@ -36,21 +37,21 @@ div.board  div:nth-child(16n+16) {
 	background-color: black;
 }
 
-div.board div a {
+a.piece {
 	display: inline-block;
 	margin: 10px 15px 15px 10px;
 	padding: 5px 10px 5px 10px;
 	border-radius: 70px;
 }
 
-div.board div a.white {
+a.piece.white {
 	border: 1px solid black;
 	color: black;
 	background-color: white;
 }
 
 
-div.board div a.black {
+a.piece.black {
 	border: 1px solid white;
 	background-color: black;
 	color: white;
@@ -67,4 +68,20 @@ div.board div.highlighted-red {
 
 div.board div.selected {
 	background-color: #7FFF00;
+}
+
+ul.takenPieces {
+  list-style: none;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 448px;
+  height: 60px;
+  overflow-x: scroll;
+}
+
+ul.takenPieces li {
+  float: left;
+  margin: 0;
+  padding: 0;
 }

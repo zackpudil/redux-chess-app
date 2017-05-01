@@ -2,9 +2,10 @@ import sinon from 'sinon';
 import assert from 'assert';
 
 import * as squares from '~/modules/squares';
+import * as pieces from '~/modules/pieces';
 import * as game from '~/modules/game';
 import * as chess from '~/chess/engine';
-import {ROUTE_PIECE, MOVE_PIECE} from '~/modules/pieces';
+import {ROUTE_PIECE, MOVE_PIECE, TAKE_PIECE} from '~/modules/pieces';
 
 import subject from '~/modules/middleware/chess-middleware';
 
@@ -40,7 +41,7 @@ describe('pieceMovement', () => {
 
 			let next = sinon.spy();
 			
-			subject({ getState: () => [] })(next)(action);
+			subject({ getState: () => ({ squares: [] }) })(next)(action);
 
 			assert(squares.clearHighlights.called);
 			assert(squares.highlightSquare.calledWith('a1'));
@@ -75,10 +76,12 @@ describe('pieceMovement', () => {
 
 		it('should dispatch add/remove piece actions with currently selected square.', () => {
 			let state = { 
-				getState: () => [
-					{ id: '1', pieceId: 'b', selected: true }, 
-					{ id: '2', highlighted: true }
-				]
+        getState: () => ({ 
+          squares: [
+            { id: '1', pieceId: 'b', selected: true }, 
+            { id: '2', highlighted: true }
+          ] 
+        })
 			};
 
 			subject(state)(next)(action);
@@ -91,10 +94,12 @@ describe('pieceMovement', () => {
 
 		it('should not dispatch any actions if no piece is selected.', () => {
 			let state = { 
-				getState: () => [
-					{ id: '1', pieceId: 'b', selected: false }, 
-					{ id: '2', highlighted: true }
-				]
+				getState: () => ({
+          squares: [
+            { id: '1', pieceId: 'b', selected: false }, 
+            { id: '2', highlighted: true }
+          ]
+        })
 			};
 
 			subject(state)(next)(action);
@@ -107,10 +112,12 @@ describe('pieceMovement', () => {
 
 		it('should not dispatch any actions if square is not highlighted.', () => {
 			let state = {
-				getState: () => [
-					{ id: '1', pieceId: 'b', selected: true },
-					{ id: '2', highlighted: false }
-				]
+				getState: () => ({
+          squares: [
+            { id: '1', pieceId: 'b', selected: true },
+            { id: '2', highlighted: false }
+          ]
+        })
 			};
 
 			subject(state)(next)(action);
@@ -121,4 +128,47 @@ describe('pieceMovement', () => {
       assert(!game.analyzeBoard.called);
 		});
 	});
+
+  describe('Take peice', () => {
+		var action, next;
+
+		beforeEach(() => {
+			action = { type: TAKE_PIECE, toSquareId: '2' };
+			next = sinon.spy();
+
+			sinon.spy(squares, 'clearHighlights');
+			sinon.spy(squares, 'addPiece');
+			sinon.spy(squares, 'removePiece');
+      sinon.spy(pieces, 'addTakenPiece');
+      sinon.spy(game, 'analyzeBoard');
+		});
+
+		afterEach(() => {
+			squares.clearHighlights.restore();
+			squares.addPiece.restore();
+			squares.removePiece.restore();
+      pieces.addTakenPiece.restore();
+      game.analyzeBoard.restore();
+		});
+
+		it('should dispatch add/remove piece actions with currently selected square.', () => {
+			let state = { 
+        getState: () => ({ 
+          squares: [
+            { id: '1', pieceId: 'b', selected: true }, 
+            { id: '2', pieceId: 'a', highlighted: true, color: 'test' }
+          ] 
+        })
+			};
+
+			subject(state)(next)(action);
+
+			assert(squares.clearHighlights.called);
+      assert(squares.removePiece.calledWith('2'));
+			assert(squares.addPiece.calledWith('2', 'b'));
+			assert(squares.removePiece.calledWith('1'));
+      assert(pieces.addTakenPiece.calledWith('a', 'test'));
+      assert(game.analyzeBoard.calledWith('1', '2', 'b'));
+		});
+  });
 });
