@@ -1,5 +1,5 @@
 import { WHITE_KING_SQUARE, WHITE_K_AFTER_KING_CASTLE, WHITE_K_AFTER_QUEEN_CASTLE,
-         BLACK_KING_SQUARE, BLACK_K_AFTER_KING_CASTLE, BLACK_K_AFTER_QUEEN_CASTLE  } from '~/modules/game';
+         BLACK_KING_SQUARE, BLACK_K_AFTER_KING_CASTLE, BLACK_K_AFTER_QUEEN_CASTLE  } from '~/reducers/game';
 
 const wasCastle = (fromSquare, toSquare, after) => {
     return (fromSquare === WHITE_KING_SQUARE || fromSquare === BLACK_KING_SQUARE)

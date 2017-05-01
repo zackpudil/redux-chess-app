@@ -1,8 +1,8 @@
 import assert from 'assert';
 import sinon from 'sinon';
 import * as board from '~/chess/board';
-import { NO_PIECE_ID, WHITE } from '~/modules/pieces';
-import subject, { HIGHLIGHT_SQUARE, CLEAR_HIGHLIGHTS, INIT_SQUARES, SELECT_SQUARE, ADD_PIECE, REMOVE_PIECE } from '~/modules/squares';
+import { NO_PIECE_ID, WHITE } from '~/reducers/pieces';
+import subject, { HIGHLIGHT_SQUARE, CLEAR_HIGHLIGHTS, INIT_SQUARES, SELECT_SQUARE, ADD_PIECE, REMOVE_PIECE } from '~/reducers/squares';
 
 describe('Squares', () => {
 	it('should exist.', () => assert.notEqual(subject, undefined));

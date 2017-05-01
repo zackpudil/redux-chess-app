@@ -1,9 +1,9 @@
 import { combineReducers, createStore, compose, applyMiddleware } from 'redux';
-import chess from './modules/middleware/chess-middleware';
-import gamem from './modules/middleware/game-middleware';
+import chess from './reducers/middleware/chess-middleware';
+import gamem from './reducers/middleware/game-middleware';
 
-import squares from './modules/squares';
-import pieces from './modules/pieces';
+import squares from './reducers/squares';
+import pieces from './reducers/pieces';
 
 const rootReducer = combineReducers({
   squares: squares,

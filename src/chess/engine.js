@@ -1,4 +1,4 @@
-import { WHITE, BLACK } from '../modules/pieces';
+import { WHITE, BLACK } from '../reducers/pieces';
 import { toSquare, toCoord, fromState } from './board';
 import { enforceBoundary, enforceLatteralJump, 
          enforceDiagnalJump, enforceTakenSquare,

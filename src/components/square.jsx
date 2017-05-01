@@ -1,5 +1,5 @@
 import React from 'react';
-import {BLACK, NO_PIECE_ID} from '../modules/pieces';
+import {BLACK, NO_PIECE_ID} from '../reducers/pieces';
 
 export const Piece = (props) => {
   let pieceClass = 'piece ';
