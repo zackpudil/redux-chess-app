@@ -1,3 +1,4 @@
+import { toMoveNotation } from '~/chess/analysis';
 export const WHITE_KING_SQUARE = 'e1';
 export const BLACK_KING_SQUARE = 'e8';
 
@@ -45,12 +46,8 @@ export default (state = { moves: [], whiteTurn: true }, action) => {
   switch(action.type) {
     case ADD_MOVE:
       // to chess notation.
-      let move = '';
-      if(action.pieceId.toLowerCase() !== 'p') move += action.pieceId;
-      if(action.isTake) move += 'x';
-      move += action.toSquareId;
-
-      return Object.assign({}, state, { moves: [...state.moves, move] });
+      let move = toMoveNotation(action.pieceId, action.toSquareId, action.isTake);
+      return Object.assign({}, state, { whiteTurn: !state.whiteTurn, moves: [...state.moves, move] });
       break;
     default:
       return state;

@@ -41,4 +41,38 @@ describe('Analysis', () => {
     });
   });
 
+  describe('toMoveNotation', () => {
+    it('should exist.', () => assert.notEqual(subject.toMoveNotation, undefined));
+
+    it('should return proper chess notation.', () => {
+      let pieceId = 't';
+      let toSquareId = 't4';
+      let move = subject.toMoveNotation(pieceId, toSquareId, false);
+
+      assert.deepEqual(move, 'tt4');
+    });
+
+    it('should add proper chess notaction for piece take.', () => {
+      let pieceId = 't';
+      let toSquareId = 't4';
+
+      let move = subject.toMoveNotation(pieceId, toSquareId, true);
+
+      assert.deepEqual(move, 'txt4');
+    });
+
+    it('should add proper chess notation for pawn.', () => {
+      let pieceId = 'p';
+      let toSquareId = 't1';
+
+      let moveBlack = subject.toMoveNotation(pieceId, toSquareId, false);
+      assert.deepEqual(moveBlack, 't1');
+
+      pieceId = 'P';
+      toSquareId = 't7';
+
+      let moveWhite = subject.toMoveNotation(pieceId, toSquareId, false);
+      assert.deepEqual(moveWhite, 't7');
+    });
+  });
 });

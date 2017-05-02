@@ -17,3 +17,12 @@ export const wasQueenCastle = (fromSquare, toSquare, piece) => {
   return wasCastle(fromSquare, toSquare, 
     piece.toLowerCase() === piece ? BLACK_K_AFTER_QUEEN_CASTLE : WHITE_K_AFTER_QUEEN_CASTLE);
 };
+
+export const toMoveNotation = (pieceId, toSquareId, isTake) => {
+  let move = '';
+  if(pieceId.toLowerCase() !== 'p') move += pieceId;
+  if(isTake) move += 'x';
+  move += toSquareId;
+
+  return move;
+};

@@ -9,11 +9,11 @@ export const Moves = (props) => {
     return acc;
   }, []);
   return (
-    <table>
+    <table className="table">
       <thead>
         <tr>
-          <th>White</th>
-          <th>Black</th>
+          <th className={props.whiteTurn ? "active" : ""}>White</th>
+          <th className={!props.whiteTurn ? "active" : ""}>Black</th>
         </tr>
       </thead>
       <tbody>
@@ -24,5 +24,5 @@ export const Moves = (props) => {
 };
 
 export default connect(
-  (state = { game: { moves: [] }}) => ({ moves: state.game.moves }))
+  (state = { game: { moves: [], whiteTurn: true }}) => state.game)
 (Moves);

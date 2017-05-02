@@ -15,14 +15,16 @@ export class Board extends React.Component {
 				{this.props.squares.slice().reverse().map((s, i) => <Square key={i} {...s} 
 					routePiece={this.props.routePiece} 
           movePiece={this.props.movePiece} 
-          takePiece={this.props.takePiece }/>)}
+          takePiece={this.props.takePiece }
+          whiteTurn={this.props.whiteTurn }/>)}
 			</div>
 		);
 	}
 };
 
 export default connect(
-	(state = { squares: [] }) => ({ squares: state.squares }), 
+  (state = { squares: [], game: { whiteTurn: true } }) => 
+    ({ squares: state.squares, whiteTurn: state.game.whiteTurn }), 
   { routePiece, movePiece, takePiece, initSquares})
 (Board);
 

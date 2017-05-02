@@ -1,5 +1,5 @@
 import React from 'react';
-import {BLACK, NO_PIECE_ID} from '../reducers/pieces';
+import {WHITE, BLACK, NO_PIECE_ID} from '../reducers/pieces';
 
 export const Piece = (props) => {
   let pieceClass = 'piece ';
@@ -25,8 +25,12 @@ export const Square = (props) => {
     } else {
       if(props.highlighted)
         props.takePiece(props.id);
-      else
-			  props.routePiece(props.id, props.pieceId);
+      else {
+        if(props.whiteTurn && props.color === WHITE)
+			    props.routePiece(props.id, props.pieceId);
+        else if(!props.whiteTurn && props.color === BLACK)
+          props.routePiece(props.id, props.pieceId);
+      }
     }
 	};
 

@@ -11,11 +11,17 @@ import { BLACK, WHITE } from './reducers/pieces';
 
 const App = () => (
 	<Provider store={Store}>
-    <div>
-      <TakenPieces color={WHITE} />
-      <Board />
-      <TakenPieces color={BLACK} />
-      <Moves />
+    <div className="container">
+      <div className="row">
+        <div className="col-md-5">
+          <TakenPieces color={WHITE} />
+          <Board />
+          <TakenPieces color={BLACK} />
+        </div>
+        <div className="col-md-2">
+          <Moves />
+        </div>
+      </div>
     </div>
 	</Provider>
 );
