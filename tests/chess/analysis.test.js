@@ -47,32 +47,84 @@ describe('Analysis', () => {
     it('should return proper chess notation.', () => {
       let pieceId = 't';
       let toSquareId = 't4';
-      let move = subject.toMoveNotation(pieceId, toSquareId, false);
+      let fromSquareId = 'a3';
+
+      let move = subject.toMoveNotation(pieceId, toSquareId, fromSquareId, false);
 
       assert.deepEqual(move, 'tt4');
     });
 
-    it('should add proper chess notaction for piece take.', () => {
+    it('should return proper chess notaction for piece take.', () => {
       let pieceId = 't';
       let toSquareId = 't4';
+      let fromSquareId = 'a3';
 
-      let move = subject.toMoveNotation(pieceId, toSquareId, true);
+      let move = subject.toMoveNotation(pieceId, toSquareId, fromSquareId, true);
 
       assert.deepEqual(move, 'txt4');
     });
 
-    it('should add proper chess notation for pawn.', () => {
+    it('should return proper chess notation for pawn.', () => {
       let pieceId = 'p';
       let toSquareId = 't1';
+      let fromSquareId = 'a3';
 
-      let moveBlack = subject.toMoveNotation(pieceId, toSquareId, false);
+      let moveBlack = subject.toMoveNotation(pieceId, toSquareId, fromSquareId, false);
       assert.deepEqual(moveBlack, 't1');
 
       pieceId = 'P';
       toSquareId = 't7';
+      fromSquareId = 'a4';
 
-      let moveWhite = subject.toMoveNotation(pieceId, toSquareId, false);
+      let moveWhite = subject.toMoveNotation(pieceId, toSquareId, fromSquareId, false);
       assert.deepEqual(moveWhite, 't7');
     });
   });
+
+  it('should return proper chesss notation for pawn take.', () => {
+    let pieceId = 'p';
+    let toSquareId = 'd4';
+    let fromSquareId = 'e3';
+
+    let move = subject.toMoveNotation(pieceId, toSquareId, fromSquareId, true);
+    assert.deepEqual(move, 'exd');
+  });
+
+  it('should return proper chess notation for king side castle.', () => {
+    let pieceId = 'k';
+    let toSquareId = BLACK_K_AFTER_KING_CASTLE;
+    let fromSquareId = BLACK_KING_SQUARE;
+
+    let moveBlack = subject.toMoveNotation(pieceId, toSquareId, fromSquareId, false);
+
+    assert.deepEqual(moveBlack, '0-0');
+
+    pieceId = 'K';
+    toSquareId = WHITE_K_AFTER_KING_CASTLE;
+    fromSquareId = WHITE_KING_SQUARE;
+
+    let moveWhite = subject.toMoveNotation(pieceId, toSquareId, fromSquareId, false);
+
+    assert.deepEqual(moveWhite, '0-0');
+
+  });
+
+   it('should return proper chess notation for queen side castle.', () => {
+    let pieceId = 'k';
+    let toSquareId = BLACK_K_AFTER_QUEEN_CASTLE;
+    let fromSquareId = BLACK_KING_SQUARE;
+
+    let moveBlack = subject.toMoveNotation(pieceId, toSquareId, fromSquareId, false);
+
+    assert.deepEqual(moveBlack, '0-0-0');
+
+    pieceId = 'K';
+    toSquareId = WHITE_K_AFTER_QUEEN_CASTLE;
+    fromSquareId = WHITE_KING_SQUARE;
+
+    let moveWhite = subject.toMoveNotation(pieceId, toSquareId, fromSquareId, false);
+
+    assert.deepEqual(moveWhite, '0-0-0');
+  });
+
 });

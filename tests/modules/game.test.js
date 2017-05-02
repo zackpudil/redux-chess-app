@@ -33,12 +33,13 @@ describe('Game', () => {
         type: ADD_MOVE,
         isTake: false,
         pieceId: 't',
-        toSquareId: 't4'
+        toSquareId: 't4',
+        fromSquareId: 'a3'
       };
 
       let testState = subject(state, action);
 
-      assert(analyze.toMoveNotation.calledWith('t', 't4', false));
+      assert(analyze.toMoveNotation.calledWith('t', 't4', 'a3', false));
       assert.deepEqual(testState, {
         whiteTurn: true,
         moves: ['e1']

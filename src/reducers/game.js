@@ -34,10 +34,11 @@ export const analyzeBoard = (fromSquare, toSquare, piece) => ({
 export const castleKingSide = (isWhite) => ({ type: CASTLE_KING_SIDE, isWhite });
 export const castleQueenSide = (isWhite) => ({ type: CASTLE_QUEEN_SIDE, isWhite });
 
-export const addMove = (pieceId, toSquareId, isTake) => ({
+export const addMove = (pieceId, toSquareId, fromSquareId, isTake) => ({
   type: ADD_MOVE,
   pieceId,
   toSquareId,
+  fromSquareId,
   isTake
 });
 
@@ -46,7 +47,7 @@ export default (state = { moves: [], whiteTurn: true }, action) => {
   switch(action.type) {
     case ADD_MOVE:
       // to chess notation.
-      let move = toMoveNotation(action.pieceId, action.toSquareId, action.isTake);
+      let move = toMoveNotation(action.pieceId, action.toSquareId, action.fromSquareId, action.isTake);
       return Object.assign({}, state, { whiteTurn: !state.whiteTurn, moves: [...state.moves, move] });
       break;
     default:

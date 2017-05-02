@@ -26,13 +26,13 @@ export default store => next => action => {
       if(action.type === MOVE_PIECE) {
         next(addPiece(action.toSquareId, selectedSquare.pieceId));
         next(removePiece(selectedSquare.id));
-        next(addMove(selectedSquare.pieceId, action.toSquareId, false));
+        next(addMove(selectedSquare.pieceId, action.toSquareId, selectedSquare.id, false));
       } else if(action.type === TAKE_PIECE) {
         next(removePiece(action.toSquareId));
         next(addPiece(action.toSquareId, selectedSquare.pieceId));
         next(removePiece(selectedSquare.id));
         next(addTakenPiece(moveSquare.pieceId, moveSquare.color));
-        next(addMove(selectedSquare.pieceId, action.toSquareId, true));
+        next(addMove(selectedSquare.pieceId, action.toSquareId, selectedSquare.id, true));
       }
 
       next(analyzeBoard(selectedSquare.id, action.toSquareId, selectedSquare.pieceId));
