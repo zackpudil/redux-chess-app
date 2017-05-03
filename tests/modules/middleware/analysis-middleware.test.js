@@ -6,7 +6,7 @@ import { WHITE, BLACK } from '~/reducers/pieces';
 import * as game from '~/reducers/game';
 import * as analyze from '~/chess/analysis';
 
-import subject from '~/reducers/middleware/game-middleware';
+import subject from '~/reducers/middleware/analysis-middleware';
 
 describe('Game middleware', () => {
   it('should exist.', () => assert.notEqual(subject, undefined));
