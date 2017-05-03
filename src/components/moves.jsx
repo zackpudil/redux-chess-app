@@ -1,7 +1,9 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
+// display a table of moves, in move notation.
 export const Moves = (props) => {
+  // group moves based on color.  White's always first, so this reducer moves even indexes to white object and odd indexes to black object.
   let groupMoves = props.moves.reduce((acc, val, idx) => {
     if(idx % 2 === 0)  acc[idx] = { white: val }
     else  acc[idx - 1].black = val;

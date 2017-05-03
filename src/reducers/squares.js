@@ -1,3 +1,4 @@
+/* Main reducer of chess app.  Handles adding/removing/highlighting/selecting of pieces or squares.  */
 import { initBoard, toState } from '../chess/board';
 import { NO_PIECE_ID, WHITE, BLACK } from './pieces';
 
@@ -8,12 +9,12 @@ export const REMOVE_PIECE = 'chess/squares/remove_piece';
 export const CLEAR_HIGHLIGHTS = 'chess/squares/clear_highlighs';
 export const INIT_SQUARES = 'chess/squares/init';
 
-export const highlightSquare = (squareId) => ({ type: HIGHLIGHT_SQUARE, squareId });
-export const selectSquare = (squareId) => ({ type: SELECT_SQUARE, squareId });
-export const addPiece = (squareId, pieceId) => ({ type: ADD_PIECE, squareId, pieceId, color: pieceId.toLowerCase() === pieceId ?  BLACK : WHITE });
-export const removePiece = (squareId) => ({ type: REMOVE_PIECE, squareId });
-export const clearHighlights = () => ({ type: CLEAR_HIGHLIGHTS });
-export const initSquares = () => ({ type: INIT_SQUARES });
+export const highlightSquare = (squareId) => ({ type: HIGHLIGHT_SQUARE, squareId }); // set highlighted property to true for square id.
+export const selectSquare = (squareId) => ({ type: SELECT_SQUARE, squareId }); // set selected property  to true for squareId.
+export const addPiece = (squareId, pieceId) => ({ type: ADD_PIECE, squareId, pieceId, color: pieceId.toLowerCase() === pieceId ?  BLACK : WHITE }); // sets pieceId property of square.
+export const removePiece = (squareId) => ({ type: REMOVE_PIECE, squareId }); // sets pieceId to NO_PIECE_ID for squareId.
+export const clearHighlights = () => ({ type: CLEAR_HIGHLIGHTS }); // sets highlighted and selected to false for all squares.
+export const initSquares = () => ({ type: INIT_SQUARES }); // sets the initial board.  Called when board component is loaded.
 
 export const square = (state, action) => {
 	switch(action.type) {
@@ -33,7 +34,7 @@ export const square = (state, action) => {
 export default (state = [], action) => {
 	switch(action.type) {
 		case INIT_SQUARES:
-			return toState(initBoard());
+			return toState(initBoard()); // use the board to get the initial board, and map it to ui-state.
 		case HIGHLIGHT_SQUARE:
 		case SELECT_SQUARE:
 		case ADD_PIECE:

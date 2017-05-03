@@ -1,3 +1,4 @@
+/* Handles the analyzeBoard action, it dispatches action based on analysis to itself. Such as castling and pawn promotion. */
 import {WHITE_K_ROOK_SQUARE, 
         WHITE_R_AFTER_KING_CASTLE,
         BLACK_K_ROOK_SQUARE,
@@ -15,6 +16,7 @@ import { wasKingCastle, wasQueenCastle } from '~/chess/analysis';
 export default store => next => action => {
   switch(action.type) {
     case ANALYZE_BOARD:
+      // check for castling, if castling move is detected dispatch CASTLE actions to self.
       if(wasKingCastle(action.fromSquare, action.toSquare, action.piece)) {
         store.dispatch(castleKingSide(action.piece.toUpperCase() === action.piece));
       }
@@ -23,6 +25,7 @@ export default store => next => action => {
         store.dispatch(castleQueenSide(action.piece.toUpperCase() === action.piece));
       }
       break;
+    // castling actions need to move the rook as well, dispatch more remove/add piece actions to squares reducer.
     case CASTLE_KING_SIDE:
       if(action.isWhite) {
         next(removePiece(WHITE_K_ROOK_SQUARE));

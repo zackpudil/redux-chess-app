@@ -1,6 +1,7 @@
 import React from 'react';
 import {WHITE, BLACK, NO_PIECE_ID} from '../reducers/pieces';
 
+// render the piece, which in html is an a tag.
 export const Piece = (props) => {
   let pieceClass = 'piece ';
 
@@ -19,13 +20,15 @@ export const Square = (props) => {
     : "";
 	squareClass += props.selected ? "selected" : "";
 
+  // piece click, handles what actions to call based on its own state, and state of board.
 	let pieceClick = () => {
-		if(props.pieceId === NO_PIECE_ID) {
+    if(props.pieceId === NO_PIECE_ID) {  // if square does not have a piece, dispatch move action.  If no piece selected before it will clear highlights.
 			props.movePiece(props.id);
     } else {
       if(props.highlighted)
         props.takePiece(props.id);
-      else {
+      else { // if the square is not highlighted, then we want a route action.
+        // this ensure that route action is called if it's the color's turn.
         if(props.whiteTurn && props.color === WHITE)
 			    props.routePiece(props.id, props.pieceId);
         else if(!props.whiteTurn && props.color === BLACK)

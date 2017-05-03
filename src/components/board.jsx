@@ -6,10 +6,11 @@ import {Square} from './Square';
 
 export class Board extends React.Component {
 	componentDidMount() {
-		this.props.initSquares()
+    this.props.initSquares(); // when the component is loaded, load the initial board state.
 	}
 
 	render() {
+    // render state into a list of squares.
 		return (
 			<div className="board">
 				{this.props.squares.slice().reverse().map((s, i) => <Square key={i} {...s} 
@@ -22,6 +23,7 @@ export class Board extends React.Component {
 	}
 };
 
+// squares use whiteTurn property from state to not allow somebody to move twice.
 export default connect(
   (state = { squares: [], game: { whiteTurn: true } }) => 
     ({ squares: state.squares, whiteTurn: state.game.whiteTurn }), 

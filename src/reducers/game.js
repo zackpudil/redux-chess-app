@@ -1,3 +1,4 @@
+/* Holds actions and constants that are related to analysis and move recording. Also updates state on who's turn it is.*/
 import { toMoveNotation } from '~/chess/analysis';
 export const WHITE_KING_SQUARE = 'e1';
 export const BLACK_KING_SQUARE = 'e8';
@@ -24,6 +25,7 @@ export const ANALYZE_BOARD = 'chess/game/analyze';
 
 export const ADD_MOVE = 'chess/game/add_move';
 
+// analyze board action is handled by the analysis middle ware.
 export const analyzeBoard = (fromSquare, toSquare, piece) => ({
   type: ANALYZE_BOARD,
   fromSquare,

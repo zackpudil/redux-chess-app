@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Piece} from './Square';
 
+// simple ul of all the currently taken pieces.
 export const TakenPieces = (props) => {
   let pieces = props.pieces.filter(p => p.color === props.color);
   return (

@@ -1,3 +1,4 @@
+/* Holds all the moves for a piece, relative to the given square.  It does not know any special rules, or even the scope of the board */
 export const pawn = (x, y, white) => {
   var move;
 	if(white) {
