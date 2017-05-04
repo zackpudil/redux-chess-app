@@ -1,7 +1,7 @@
 /* Game board analysis, handles castling, checks, en-passants, pawn promotion and move notation. */
 
 import { WHITE_KING_SQUARE, WHITE_K_AFTER_KING_CASTLE, WHITE_K_AFTER_QUEEN_CASTLE,
-         BLACK_KING_SQUARE, BLACK_K_AFTER_KING_CASTLE, BLACK_K_AFTER_QUEEN_CASTLE  } from '~/reducers/game';
+         BLACK_KING_SQUARE, BLACK_K_AFTER_KING_CASTLE, BLACK_K_AFTER_QUEEN_CASTLE  } from '~/modules/game';
 
 const wasCastle = (fromSquare, toSquare, after) => {
     return (fromSquare === WHITE_KING_SQUARE || fromSquare === BLACK_KING_SQUARE)

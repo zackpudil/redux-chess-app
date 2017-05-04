@@ -1,7 +1,7 @@
 import assert from 'assert';
 import sinon from 'sinon';
 
-import {WHITE, BLACK} from '~/reducers/pieces';
+import {WHITE, BLACK} from '~/modules/pieces';
 import * as subject from '~/chess/board';
 
 describe('Board', () => {

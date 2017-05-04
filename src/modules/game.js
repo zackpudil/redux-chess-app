@@ -18,7 +18,6 @@ export const BLACK_R_AFTER_KING_CASTLE = 'f8';
 export const WHITE_R_AFTER_QUEEN_CASTLE = 'd1';
 export const BLACK_R_AFTER_QUEEN_CASTLE = 'd8';
 
-
 export const CASTLE_KING_SIDE = 'chess/game/castle_king';
 export const CASTLE_QUEEN_SIDE = 'chess/game/castle_queen';
 export const ANALYZE_BOARD = 'chess/game/analyze';

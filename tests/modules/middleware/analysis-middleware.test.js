@@ -1,12 +1,12 @@
 import assert from 'assert';
 import sinon from 'sinon';
 
-import { REMOVE_PIECE, ADD_PIECE } from '~/reducers/squares';
-import { WHITE, BLACK } from '~/reducers/pieces';
-import * as game from '~/reducers/game';
+import { REMOVE_PIECE, ADD_PIECE } from '~/modules/squares';
+import { WHITE, BLACK } from '~/modules/pieces';
+import * as game from '~/modules/game';
 import * as analyze from '~/chess/analysis';
 
-import subject from '~/reducers/middleware/analysis-middleware';
+import subject from '~/modules/middleware/analysis-middleware';
 
 describe('Game middleware', () => {
   it('should exist.', () => assert.notEqual(subject, undefined));

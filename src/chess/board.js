@@ -2,7 +2,7 @@
 *  Logic Notation is  a mult-dimensional array, used for easy move calculating.
 *  UI-State notation is an array of objects that have the standard notation for squares and pieces in them. 
   * Board.js does not store the state of the board, it merly provides a manner of mapping from logical to state, the only state is stored in redux-state. */
-import { WHITE, BLACK } from '../reducers/pieces';
+import { WHITE, BLACK } from '../modules/pieces';
 
 export const letterToNumber = { 'a': 1, 'b': 2, 'c': 3, 'd': 4, 
 																'e': 5, 'f': 6, 'g': 7, 'h': 8 };

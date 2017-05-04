@@ -1,5 +1,5 @@
 import React from 'react';
-import {WHITE, BLACK, NO_PIECE_ID} from '../reducers/pieces';
+import {WHITE, BLACK, NO_PIECE_ID} from '../modules/pieces';
 
 // render the piece, which in html is an a tag.
 export const Piece = (props) => {

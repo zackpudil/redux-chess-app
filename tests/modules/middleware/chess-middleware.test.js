@@ -1,13 +1,13 @@
 import sinon from 'sinon';
 import assert from 'assert';
 
-import * as squares from '~/reducers/squares';
-import * as pieces from '~/reducers/pieces';
-import * as game from '~/reducers/game';
+import * as squares from '~/modules/squares';
+import * as pieces from '~/modules/pieces';
+import * as game from '~/modules/game';
 import * as chess from '~/chess/engine';
-import {ROUTE_PIECE, MOVE_PIECE, TAKE_PIECE} from '~/reducers/pieces';
+import {ROUTE_PIECE, MOVE_PIECE, TAKE_PIECE} from '~/modules/pieces';
 
-import subject from '~/reducers/middleware/chess-middleware';
+import subject from '~/modules/middleware/chess-middleware';
 
 describe('Chess middleware', () => {
 	it('should exist.', () => assert.notEqual(subject, undefined));

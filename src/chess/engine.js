@@ -3,7 +3,7 @@
   * Use moves to get all possible squares (even ones off board)
   * Remove/Add squares based on the outputs of rules
 */
-import { WHITE, BLACK } from '../reducers/pieces';
+import { WHITE, BLACK } from '../modules/pieces';
 import { toSquare, toCoord, fromState } from './board';
 import { enforceBoundary, enforceLatteralJump, 
          enforceDiagnalJump, enforceTakenSquare,

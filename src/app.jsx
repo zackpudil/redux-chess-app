@@ -7,7 +7,7 @@ import Board from './components/board';
 import TakenPieces from './components/taken-pieces';
 import Moves from './components/moves';
 
-import { BLACK, WHITE } from './reducers/pieces';
+import { BLACK, WHITE } from './modules/pieces';
 
 const App = () => (
 	<Provider store={Store}>

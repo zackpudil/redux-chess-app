@@ -1,10 +1,10 @@
 import assert from 'assert';
 import sinon from 'sinon';
 
-import { ADD_MOVE } from '~/reducers/game';
+import { ADD_MOVE } from '~/modules/game';
 
 import * as analyze from '~/chess/analysis';
-import subject from '~/reducers/game';
+import subject from '~/modules/game';
 
 describe('Game', () => {
   it('should exist.', () => assert.notEqual(subject, undefined));
