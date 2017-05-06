@@ -32,8 +32,8 @@ describe('Engine', () => {
 	describe('pawn', () => {
 		var p, P;
 		beforeEach(() => {
-			p = subject([]).p;
-			P = subject([]).P;
+			p = subject([])('p');
+			P = subject([])('P');
 		});
 
 		it('should exist.', () => assert(p && P));
@@ -66,8 +66,8 @@ describe('Engine', () => {
 	describe('knight', () => {
 		var n, N;
 		beforeEach(() => {
-			n = subject([]).n;
-			N = subject([]).N;
+			n = subject([])('n');
+			N = subject([])('N');
 		});
 
 		it('should exist.', () => assert(n && N));
@@ -94,8 +94,8 @@ describe('Engine', () => {
 		var b, B;
 
 		beforeEach(() => {
-			b = subject([]).b;
-			B = subject([]).B;
+			b = subject([])('b');
+			B = subject([])('B');
 		});
 
 		it('should exist.', () => assert(b && B));
@@ -115,8 +115,8 @@ describe('Engine', () => {
 		var r, R;
 
 		beforeEach(() => {
-			r = subject([]).r;
-			R = subject([]).R;
+			r = subject([])('r');
+			R = subject([])('R');
 		});
 
 		it('should exist.', () => assert(r && R));
@@ -137,8 +137,8 @@ describe('Engine', () => {
 		var k, K;
 
 		beforeEach(() => {
-			k = subject([]).k;
-			K = subject([]).K;
+			k = subject([])('k');
+			K = subject([])('K');
 		});
 
 		it('should exist.', () => assert(k && K));
@@ -159,8 +159,8 @@ describe('Engine', () => {
 		var q, Q;
 
 		beforeEach(() => {
-			q = subject([]).q;
-			Q = subject([]).Q;
+			q = subject([])('q');
+			Q = subject([])('Q');
 		});
 
 		it('should exist.', () => assert(q && Q));

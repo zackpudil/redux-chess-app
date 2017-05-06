@@ -31,7 +31,6 @@ export const analyzeBoard = (fromSquare, toSquare, piece) => ({
   toSquare,
   piece
 });
-
 export const castleKingSide = (isWhite) => ({ type: CASTLE_KING_SIDE, isWhite });
 export const castleQueenSide = (isWhite) => ({ type: CASTLE_QUEEN_SIDE, isWhite });
 

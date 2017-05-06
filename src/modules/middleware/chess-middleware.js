@@ -9,7 +9,7 @@ export default store => next => action => {
 		case ROUTE_PIECE: // route is an action that highlights possible square for selected square. 
       // This updates the state of the square, and that update is by the move and take actions to 'validate' move.
 			next(clearHighlights());
-			let squares = engine(store.getState().squares)[action.pieceId](action.squareId);
+			let squares = engine(store.getState().squares)(action.pieceId)(action.squareId);
 			squares.forEach(s => next(highlightSquare(s))); // highlight squares given by engine.
 			next(selectSquare(action.squareId)); // select clicked on square.
 			break;

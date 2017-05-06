@@ -21,9 +21,9 @@ describe('Chess middleware', () => {
 
 	describe('Route action', () => {
 		beforeEach(() => {
-			sinon.stub(chess, 'default').returns({
-				p: () => ['a1', 'b1', 'c4']
-			}); 
+			sinon.stub(chess, 'default').returns(
+				(p) => () => ['a1', 'b1', 'c4']
+      ); 
 			sinon.spy(squares, 'highlightSquare');
 			sinon.spy(squares, 'selectSquare');
 			sinon.spy(squares, 'clearHighlights');

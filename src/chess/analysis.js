@@ -3,6 +3,9 @@
 import { WHITE_KING_SQUARE, WHITE_K_AFTER_KING_CASTLE, WHITE_K_AFTER_QUEEN_CASTLE,
          BLACK_KING_SQUARE, BLACK_K_AFTER_KING_CASTLE, BLACK_K_AFTER_QUEEN_CASTLE  } from '~/modules/game';
 
+import { NO_PIECE_ID } from '~/modules/pieces';
+import { logical } from './engine';
+
 const wasCastle = (fromSquare, toSquare, after) => {
     return (fromSquare === WHITE_KING_SQUARE || fromSquare === BLACK_KING_SQUARE)
        &&  (toSquare === after);
@@ -18,6 +21,37 @@ export const wasQueenCastle = (fromSquare, toSquare, piece) => {
   if(piece.toLowerCase() !== 'k') return false;
   return wasCastle(fromSquare, toSquare, 
     piece.toLowerCase() === piece ? BLACK_K_AFTER_QUEEN_CASTLE : WHITE_K_AFTER_QUEEN_CASTLE);
+};
+
+export const doesMovePutKingInCheck = (moves, kingPiece, board) => {
+  let row = board.filter(r => r.includes(kingPiece))[0];
+  let kingCoord = {
+    x: row.indexOf(kingPiece) + 1,
+    y: board.indexOf(row) + 1
+  };
+
+  return moves
+    .filter(ms => ms.x === kingCoord.x && ms.y === kingCoord.y)
+    .length !== 0;
+};
+
+export const isKingInCheck = (board, kingColorIsWhite) => {
+  let check = false;
+
+  let kingPiece = kingColorIsWhite ? 'K' : 'k';
+  board.forEach((r, i) => r.forEach((p, j) => {
+    if(check) return;
+    if(p.toLowerCase() === 'k') return;
+    if(p === NO_PIECE_ID) return;
+
+    if(kingColorIsWhite && p.toUpperCase() === p) return;
+    if(!kingColorIsWhite && p.toLowerCase() === p) return;
+
+    let moves = logical[p](j + 1, i + 1, p.toUpperCase() === p, board);
+    check = doesMovePutKingInCheck(moves, kingPiece, board);
+  }));
+
+  return check;
 };
 
 // Takes move action and returns a move notation. https://en.wikipedia.org/wiki/Algebraic_notation_(chess)

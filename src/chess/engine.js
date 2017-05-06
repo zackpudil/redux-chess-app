@@ -67,20 +67,22 @@ const stateToLogicMap = (calc, color, board) => (square) => {
 	return coords.map(toSquare);
 };
 
+export const logical = {
+  'P': pawn,
+  'p': pawn,
+  'N': knight,
+  'n': knight,
+  'B': bishop,
+  'b': bishop,
+  'R': rook,
+  'r': rook,
+  'Q': queen,
+  'q': queen,
+  'K': king,
+  'k': king
+};
+
 export default (state) => {
 	let board = fromState(state);
-	return {
-		'P': stateToLogicMap(pawn, WHITE, board),
-		'p': stateToLogicMap(pawn, BLACK, board),
-		'N': stateToLogicMap(knight, WHITE, board),
-		'n': stateToLogicMap(knight, BLACK, board),
-		'B': stateToLogicMap(bishop, WHITE, board),
-		'b': stateToLogicMap(bishop, BLACK, board),
-		'R': stateToLogicMap(rook, WHITE, board),
-		'r': stateToLogicMap(rook, BLACK, board),
-		'Q': stateToLogicMap(queen, WHITE, board),
-		'q': stateToLogicMap(queen, BLACK, board),
-		'K': stateToLogicMap(king, WHITE, board),
-		'k': stateToLogicMap(king, BLACK, board)
-	}
+  return (p) => stateToLogicMap(logical[p], p.toUpperCase() === p ? WHITE : BLACK, board)
 };

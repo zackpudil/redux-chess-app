@@ -41,6 +41,59 @@ describe('Analysis', () => {
     });
   });
 
+  describe('doesMovePutKingInCheck', () => {
+    var board;
+
+    beforeEach(() => {
+      board = [
+        ['_', 'N', 'K', '_', '_'],
+        ['R', '_', '_', '_', 'k'],
+        ['_', 'n', 'r', 'q', '_']
+      ];
+
+    });
+    it('should return true if moveSquares include king', () => {
+      let moveSquaresWhite = [{ x: 5, y: 2 }, { x: 4, y: 2 }, { x: 3, y: 2 }];
+      let moveSquaresBlack = [{ x: 3, y: 1 }, { x: 2, y: 2 }, { x: 2, y: 3 }];
+
+      assert(subject.doesMovePutKingInCheck(moveSquaresWhite, 'k', board));
+      assert(subject.doesMovePutKingInCheck(moveSquaresBlack, 'K', board));
+    });
+
+    it('should return false if moveSquares does not include king.', () => {
+      let moveSquaresWhite = [{ x:4, y: 1 }, { x: 3, y: 1 }];
+      let moveSquaresBlack = [{ x: 2, y: 2 }, { x: 2, y: 3 }];
+
+      assert(!subject.doesMovePutKingInCheck(moveSquaresWhite, 'k', board));
+      assert(!subject.doesMovePutKingInCheck(moveSquaresBlack, 'K', board));
+    });
+  });
+
+  describe('isKingInCheck', () => {
+    var board;
+
+    beforeEach(() =>  {
+      board = [
+        ['R', '_', '_', 'K', 'Q', 'B', '_', 'R'],
+        ['P', 'P', 'P', '_', 'P', 'P', 'P', 'P'],
+        ['_', '_', 'N', '_', '_', 'N', '_', '_'],
+        ['_', '_', '_', 'P', 'n', '_', '_', '_'],
+        ['_', '_', '_', 'p', 'p', '_', 'B', '_'],
+        ['_', '_', '_', '_', '_', '_', '_', '_'],
+        ['p', 'p', 'p', '_', '_', 'p', 'p', 'p'],
+        ['r', 'n', 'b', 'k', 'q', 'b', '_', 'r']
+      ];
+    });
+
+    it('should return true if king is in check.', () => {
+      assert(subject.isKingInCheck(board, false));
+    });
+
+    it('should return false if king is not in check.', () => {
+      assert(!subject.isKingInCheck(board, true));
+    });
+  });
+
   describe('toMoveNotation', () => {
     it('should exist.', () => assert.notEqual(subject.toMoveNotation, undefined));
 
