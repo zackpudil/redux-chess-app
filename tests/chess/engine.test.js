@@ -3,6 +3,8 @@ import sinon from 'sinon';
 import subject from '~/chess/engine';
 
 import * as rules from '~/chess/rules';
+import * as analyze from '~/chess/analysis';
+import * as board from '~/chess/board';
 
 describe('Engine', () => {
 	beforeEach(() => {
@@ -11,12 +13,16 @@ describe('Engine', () => {
 		sinon.stub(rules, 'enforceDiagnalJump');
     sinon.stub(rules, 'pawnCanTakeDiagnally');
     sinon.stub(rules, 'kingCastle');
+    sinon.stub(analyze, 'isKingInCheck');
+    sinon.stub(board, 'virtualMove');
 
 		rules.enforceLatteralJump.callsFake((a, b) => b);
 		rules.enforceTakenSquare.callsFake((a, b) => b);
 		rules.enforceDiagnalJump.callsFake((a, b) => b);
     rules.pawnCanTakeDiagnally.callsFake(() => []);
     rules.kingCastle.callsFake(() => []);
+    analyze.isKingInCheck.callsFake(() => false);
+    board.virtualMove.callsFake(() => []);
 	});
 
 	afterEach(() => {
@@ -25,6 +31,8 @@ describe('Engine', () => {
 		rules.enforceDiagnalJump.restore();
     rules.pawnCanTakeDiagnally.restore();
     rules.kingCastle.restore();
+    analyze.isKingInCheck.restore();
+    board.virtualMove.restore();
 	});
 
 	it('should exist', () => assert.notEqual(subject, undefined));

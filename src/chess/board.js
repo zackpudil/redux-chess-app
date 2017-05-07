@@ -68,3 +68,14 @@ export const fromState = (state) => {
 
 	return board;
 };
+
+// Return a new board that uses the coords to do a 'virtual move'.
+// this board is not reflected in the state, and is purley for analysis reasons.
+export const virtualMove = (fromCoord, toCoord, board) => {
+  let virtualBoard = board.map(r => r.slice());
+  let piece = virtualBoard[fromCoord.y - 1][fromCoord.x - 1];
+  virtualBoard[fromCoord.y - 1][fromCoord.x - 1] = '_';
+  virtualBoard[toCoord.y - 1][toCoord.x - 1] = piece;
+
+  return virtualBoard;
+};

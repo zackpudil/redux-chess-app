@@ -72,4 +72,31 @@ describe('Board', () => {
       assert.deepEqual(coords, [{x: 1, y: 1}, {x: 8, y: 8}, {x: 4, y:4}, {x:2, y:6}]);
     });
   });
+
+  describe('virtualMove', () => {
+    it('should exist.', () => assert.notEqual(subject.virtualMove, undefined));
+
+    it('should return board with applied move', () => {
+      let board = [
+        ['R', '_', '_', '_'],
+        ['_', '_', '_', '_'],
+        ['_', '_', '_', '_']
+      ];
+
+      let moveBoard = subject.virtualMove({x: 1, y: 1}, {x: 1, y: 3 }, board);
+
+      assert.notEqual(moveBoard, board);
+      assert.deepEqual(board, [
+        ['R', '_', '_', '_'],
+        ['_', '_', '_', '_'],
+        ['_', '_', '_', '_']
+      ]);
+      assert.deepEqual(moveBoard, [
+        ['_', '_', '_', '_'],
+        ['_', '_', '_', '_'],
+        ['R', '_', '_', '_']
+      ]);
+
+    });
+  });
 });

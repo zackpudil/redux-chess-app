@@ -1,6 +1,6 @@
 /* Middleware, dispatches multiple actions for routing (highlighting possible move squares for selected piece), moving and taking pieces */
 import { ROUTE_PIECE, MOVE_PIECE, TAKE_PIECE, addTakenPiece } from '../pieces';
-import { highlightSquare, selectSquare, clearHighlights, addPiece, removePiece } from '../squares';
+import { highlightSquare, selectSquare, clearHighlights, clearCheck, addPiece, removePiece } from '../squares';
 import { analyzeBoard, addMove } from '../game';
 import engine from '~/chess/engine';
 
@@ -27,6 +27,7 @@ export default store => next => action => {
       }
 
       next(clearHighlights());
+      next(clearCheck());
       if(action.type === MOVE_PIECE) {
         next(addPiece(action.toSquareId, selectedSquare.pieceId)); // add piece to clicked on square.
         next(removePiece(selectedSquare.id)); // remove piece from it's original square.

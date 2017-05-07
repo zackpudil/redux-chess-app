@@ -4,7 +4,7 @@ import { WHITE_KING_SQUARE, WHITE_K_AFTER_KING_CASTLE, WHITE_K_AFTER_QUEEN_CASTL
          BLACK_KING_SQUARE, BLACK_K_AFTER_KING_CASTLE, BLACK_K_AFTER_QUEEN_CASTLE  } from '~/modules/game';
 
 import { NO_PIECE_ID } from '~/modules/pieces';
-import { logical } from './engine';
+import { pieceMap } from './engine';
 import { toSquare } from './board';
 
 const wasCastle = (fromSquare, toSquare, after) => {
@@ -48,7 +48,7 @@ export const isKingInCheck = (board, kingColorIsWhite) => {
     if(kingColorIsWhite && p.toUpperCase() === p) return;
     if(!kingColorIsWhite && p.toLowerCase() === p) return;
 
-    let moves = logical[p](j + 1, i + 1, p.toUpperCase() === p, board);
+    let moves = pieceMap[p](j + 1, i + 1, p.toUpperCase() === p, board);
     check = doesMovePutKingInCheck(moves, kingPiece, board);
   }));
 

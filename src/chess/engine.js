@@ -4,10 +4,11 @@
   * Remove/Add squares based on the outputs of rules
 */
 import { WHITE, BLACK } from '../modules/pieces';
-import { toSquare, toCoord, fromState } from './board';
+import { toSquare, toCoord, fromState, virtualMove } from './board';
 import { enforceBoundary, enforceLatteralJump, 
          enforceDiagnalJump, enforceTakenSquare,
          pawnCanTakeDiagnally, kingCastle } from './rules';
+import { isKingInCheck } from './analysis';
 import * as mover from  './moves';
 
 
@@ -63,11 +64,15 @@ export const king = (x, y, white, board) => {
 // helper decorator function that moves squares to coords for inputs and vice-versa for outputs.
 const stateToLogicMap = (calc, color, board) => (square) => {
 	let {x, y} = toCoord(square);
-	let coords = calc(Number(x), Number(y), color === WHITE, board);
+	let coords = calc(x, y, color === WHITE, board);
+  coords = coords.filter(c => {
+    let newBoard = virtualMove({ x, y }, c, board);
+    return !isKingInCheck(newBoard, color === WHITE);
+  });
 	return coords.map(toSquare);
 };
 
-export const logical = {
+export const pieceMap = {
   'P': pawn,
   'p': pawn,
   'N': knight,
@@ -84,5 +89,5 @@ export const logical = {
 
 export default (state) => {
 	let board = fromState(state);
-  return (p) => stateToLogicMap(logical[p], p.toUpperCase() === p ? WHITE : BLACK, board)
+  return (p) => stateToLogicMap(pieceMap[p], p.toUpperCase() === p ? WHITE : BLACK, board)
 };
