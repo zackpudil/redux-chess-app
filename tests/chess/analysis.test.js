@@ -2,6 +2,7 @@ import assert from 'assert';
 import { WHITE_KING_SQUARE, WHITE_K_AFTER_KING_CASTLE, WHITE_K_AFTER_QUEEN_CASTLE,
          BLACK_KING_SQUARE, BLACK_K_AFTER_KING_CASTLE, BLACK_K_AFTER_QUEEN_CASTLE } from '~/modules/game';
 
+import { initBoard } from '~/chess/board';
 import * as subject from '~/chess/analysis';
 
 describe('Analysis', () => {
@@ -91,6 +92,21 @@ describe('Analysis', () => {
 
     it('should return false if king is not in check.', () => {
       assert(!subject.isKingInCheck(board, true));
+    });
+  });
+
+  describe('getSquaresOfPiece', () => {
+    var board;
+
+    beforeEach(() => {
+      board = initBoard();
+    });
+
+    it('should return all squares that contain piece', () => {
+      let blackKnightSquareIds = subject.getSquaresOfPiece('n', board);
+      let whiteKingSquareId = subject.getSquaresOfPiece('K', board);
+      assert.deepEqual(blackKnightSquareIds, ['b8', 'g8']);
+      assert.deepEqual(whiteKingSquareId, ['e1']);
     });
   });
 

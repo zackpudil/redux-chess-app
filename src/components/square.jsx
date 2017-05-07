@@ -16,9 +16,10 @@ export const Piece = (props) => {
 
 export const Square = (props) => {
   let squareClass = props.highlighted 
-    ? props.pieceId === NO_PIECE_ID ? "highlighted" : "highlighted-red" 
-    : "";
+    ? props.pieceId === NO_PIECE_ID 
+      ? "highlighted" : "highlighted-red" : "";
 	squareClass += props.selected ? "selected" : "";
+  squareClass += props.check ? "checked" : "";
 
   // piece click, handles what actions to call based on its own state, and state of board.
 	let pieceClick = () => {

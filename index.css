@@ -70,6 +70,10 @@ div.board div.selected {
 	background-color: #7FFF00;
 }
 
+div.board div.checked {
+  background-color: orange;
+}
+
 ul.takenPieces {
   list-style: none;
   list-style-type: none;

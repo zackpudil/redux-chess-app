@@ -2,7 +2,9 @@ import assert from 'assert';
 import sinon from 'sinon';
 import * as board from '~/chess/board';
 import { NO_PIECE_ID, WHITE } from '~/modules/pieces';
-import subject, { HIGHLIGHT_SQUARE, CLEAR_HIGHLIGHTS, INIT_SQUARES, SELECT_SQUARE, ADD_PIECE, REMOVE_PIECE } from '~/modules/squares';
+import subject, { HIGHLIGHT_SQUARE, CLEAR_HIGHLIGHTS, 
+                  INIT_SQUARES, SELECT_SQUARE, CHECK_SQUARE,
+                  ADD_PIECE, REMOVE_PIECE } from '~/modules/squares';
 
 describe('Squares', () => {
 	it('should exist.', () => assert.notEqual(subject, undefined));
@@ -33,9 +35,9 @@ describe('Squares', () => {
 
 			assert.deepEqual(test.sort(),
 				[
-					{ id: '1', highlighted: false, selected: false},
-					{ id: '2', highlighted: false, selected: false},
-					{ id: '3', highlighted: false, selected: false}
+					{ id: '1', highlighted: false, selected: false, check: false},
+					{ id: '2', highlighted: false, selected: false, check: false},
+					{ id: '3', highlighted: false, selected: false, check: false}
 				].sort());
 		});
 	});
@@ -58,6 +60,46 @@ describe('Squares', () => {
 				].sort());
 		});
 	});
+
+  describe('select square', () => {
+		it('should select selected square.', () => {
+			let state = [
+				{ id: '1', selected: false },
+				{ id: '2', selected: false },
+				{ id: '3', selected: false }
+			];
+
+			let test = subject(state, { type: SELECT_SQUARE, squareId: '2' });
+
+			assert.deepEqual(test.sort(),
+				[
+					{ id: '1', selected: false },
+					{ id: '2', selected: true },
+					{ id: '3', selected: false }
+				].sort());
+		});
+	});
+
+  describe('check square', () => {
+		it('should check selected square.', () => {
+			let state = [
+				{ id: '1', check: false },
+				{ id: '2', check: false },
+				{ id: '3', check: false }
+			];
+
+			let test = subject(state, { type: CHECK_SQUARE, squareId: '2' });
+
+			assert.deepEqual(test.sort(),
+				[
+					{ id: '1', check: false },
+					{ id: '2', check: true },
+					{ id: '3', check: false }
+				].sort());
+		});
+	});
+
+
 
 	describe('initialize squares', () => {
 		it('should initialize board and map to state.', () => {

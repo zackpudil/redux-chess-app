@@ -5,6 +5,7 @@ import { WHITE_KING_SQUARE, WHITE_K_AFTER_KING_CASTLE, WHITE_K_AFTER_QUEEN_CASTL
 
 import { NO_PIECE_ID } from '~/modules/pieces';
 import { logical } from './engine';
+import { toSquare } from './board';
 
 const wasCastle = (fromSquare, toSquare, after) => {
     return (fromSquare === WHITE_KING_SQUARE || fromSquare === BLACK_KING_SQUARE)
@@ -52,6 +53,18 @@ export const isKingInCheck = (board, kingColorIsWhite) => {
   }));
 
   return check;
+};
+
+// Returns all squareIds that contain pieceId.
+export const getSquaresOfPiece = (pieceId, board) => {
+  let squares = [];
+  // column a starts at the end of the row array, hence the reverse call.
+  board.forEach( (r, i) => r.slice().reverse().forEach( (p, j) => {
+    if(p === pieceId) 
+      squares.push(toSquare({ x: j + 1, y: i + 1 }));
+  }));
+
+  return squares;
 };
 
 // Takes move action and returns a move notation. https://en.wikipedia.org/wiki/Algebraic_notation_(chess)
