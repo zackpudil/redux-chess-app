@@ -63,7 +63,7 @@ div.board div.highlighted {
 }
 
 div.board div.highlighted-red {
-  background-color: red;
+  background-color: red !important;
 }
 
 div.board div.selected {
