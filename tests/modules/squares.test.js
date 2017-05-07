@@ -35,9 +35,9 @@ describe('Squares', () => {
 
 			assert.deepEqual(test.sort(),
 				[
-					{ id: '1', highlighted: false, selected: false, check: false},
-					{ id: '2', highlighted: false, selected: false, check: false},
-					{ id: '3', highlighted: false, selected: false, check: false}
+					{ id: '1', highlighted: false, selected: false},
+					{ id: '2', highlighted: false, selected: false},
+					{ id: '3', highlighted: false, selected: false}
 				].sort());
 		});
 	});

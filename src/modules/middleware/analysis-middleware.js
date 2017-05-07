@@ -10,19 +10,27 @@ import {WHITE_K_ROOK_SQUARE,
 
 import { ANALYZE_BOARD, CASTLE_KING_SIDE, CASTLE_QUEEN_SIDE } from '../game';
 import { castleKingSide, castleQueenSide } from '../game';
-import { addPiece, removePiece } from '../squares';
-import { wasKingCastle, wasQueenCastle } from '~/chess/analysis';
+import { addPiece, removePiece, checkSquare } from '../squares';
+import { wasKingCastle, wasQueenCastle, isKingInCheck, getSquaresOfPiece } from '~/chess/analysis';
+import { fromState } from '~/chess/board';
 
 export default store => next => action => {
   switch(action.type) {
     case ANALYZE_BOARD:
       // check for castling, if castling move is detected dispatch CASTLE actions to self.
+      let isWhite = action.piece.toUpperCase() === action.piece;
       if(wasKingCastle(action.fromSquare, action.toSquare, action.piece)) {
-        store.dispatch(castleKingSide(action.piece.toUpperCase() === action.piece));
+        store.dispatch(castleKingSide(isWhite));
       }
 
       if(wasQueenCastle(action.fromSquare, action.toSquare, action.piece)) {
-        store.dispatch(castleQueenSide(action.piece.toUpperCase() === action.piece));
+        store.dispatch(castleQueenSide(isWhite));
+      }
+
+      let board = fromState(store.getState().squares);
+      if(isKingInCheck(board, !isWhite)) {
+        next(checkSquare(getSquaresOfPiece(isWhite ? 'k' : 'K', board)[0]));
+        next(checkSquare(action.toSquare));
       }
       break;
     // castling actions need to move the rook as well, dispatch more remove/add piece actions to squares reducer.

@@ -47,7 +47,7 @@ export default (state = [], action) => {
 			return state.map(s => s.id === action.squareId 
 				? square(s, action) : Object.assign({}, s));
 		case CLEAR_HIGHLIGHTS:
-			return state.map(s => Object.assign({}, s, { highlighted: false, selected: false, check: false }));
+			return state.map(s => Object.assign({}, s, { highlighted: false, selected: false }));
 		default:
 			return state;
 	}

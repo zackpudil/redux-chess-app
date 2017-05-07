@@ -5,10 +5,12 @@ import { REMOVE_PIECE, ADD_PIECE } from '~/modules/squares';
 import { WHITE, BLACK } from '~/modules/pieces';
 import * as game from '~/modules/game';
 import * as analyze from '~/chess/analysis';
+import * as board from '~/chess/board';
+import * as squares from '~/modules/squares';
 
 import subject from '~/modules/middleware/analysis-middleware';
 
-describe('Game middleware', () => {
+describe('Analysis middleware', () => {
   it('should exist.', () => assert.notEqual(subject, undefined));
 
   it('should just dispatch unsupported action.', () => {
@@ -20,10 +22,15 @@ describe('Game middleware', () => {
 
 
   describe('analyze board', () => {
-    var store = {}, action;
+    var store, action;
 
     beforeEach(() => {
-      store.dispatch = sinon.spy();
+      store = {
+        dispatch: sinon.spy(),
+        getState: () => ({
+          squares: ['a', 'b']
+        })
+      };
       action = { 
         type: game.ANALYZE_BOARD, 
         fromSquare: 'a1', 
@@ -32,11 +39,17 @@ describe('Game middleware', () => {
       };
       sinon.stub(analyze, 'wasKingCastle');
       sinon.stub(analyze, 'wasQueenCastle');
+      sinon.stub(analyze, 'isKingInCheck');
+      sinon.stub(analyze, 'getSquaresOfPiece');
+      sinon.stub(board, 'fromState');
     });
 
     afterEach(() => {
       analyze.wasKingCastle.restore();
       analyze.wasQueenCastle.restore();
+      analyze.isKingInCheck.restore();
+      analyze.getSquaresOfPiece.restore();
+      board.fromState.restore();
     });
 
     it('should check if move was king castle.', () => {
@@ -65,6 +78,26 @@ describe('Game middleware', () => {
       assert(store.dispatch.calledWith({ type: game.CASTLE_QUEEN_SIDE, isWhite: false}));
     });
 
+    it('should check if king is in check.', () => {
+      analyze.isKingInCheck.returns(false);
+      board.fromState.returns(['test']);
+      subject(store)(() => {})(action);
+
+      assert(board.fromState.calledWith(['a', 'b']));
+      assert(analyze.isKingInCheck.calledWith(['test'], true));
+    });
+
+    it('should dispatch check square action if king is in check.', () => {
+      analyze.isKingInCheck.returns(true);
+      board.fromState.returns(['test']);
+      analyze.getSquaresOfPiece.returns(['a1']);
+      let next = sinon.spy();
+
+      subject(store)(next)(action);
+
+      assert(next.calledWith({ type: squares.CHECK_SQUARE, squareId: 'a1' }));
+      assert(next.calledWith({ type: squares.CHECK_SQUARE, squareId: action.toSquare }));
+    });
   });
 
   describe('castle king side', () => {

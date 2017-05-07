@@ -59,7 +59,7 @@ export const isKingInCheck = (board, kingColorIsWhite) => {
 export const getSquaresOfPiece = (pieceId, board) => {
   let squares = [];
   // column a starts at the end of the row array, hence the reverse call.
-  board.forEach( (r, i) => r.slice().reverse().forEach( (p, j) => {
+  board.forEach( (r, i) => r.forEach( (p, j) => {
     if(p === pieceId) 
       squares.push(toSquare({ x: j + 1, y: i + 1 }));
   }));
