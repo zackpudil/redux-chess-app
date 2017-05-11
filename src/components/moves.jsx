@@ -4,6 +4,8 @@ import {connect} from 'react-redux';
 // display a table of moves, in move notation.
 export const Moves = (props) => {
   // group moves based on color.  White's always first, so this reducer moves even indexes to white object and odd indexes to black object.
+  //MJ Note this is a lot of logic in a component. Maybe move this into mapStateToProps function, or something closer to the redux store. 
+  //maybe a selector http://redux.js.org/docs/recipes/ComputingDerivedData.html
   let groupMoves = props.moves.reduce((acc, val, idx) => {
     if(idx % 2 === 0)  acc[idx] = { white: val }
     else  acc[idx - 1].black = val;
