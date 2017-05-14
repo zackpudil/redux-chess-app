@@ -1,19 +1,12 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import { groupMovesByColor } from '~/modules/game/selectors';
 
 // display a table of moves, in move notation.
 export const Moves = (props) => {
-  // group moves based on color.  White's always first, so this reducer moves even indexes to white object and odd indexes to black object.
   //MJ Note this is a lot of logic in a component. Maybe move this into mapStateToProps function, or something closer to the redux store. 
   //maybe a selector http://redux.js.org/docs/recipes/ComputingDerivedData.html
-  let groupMoves = props.moves.reduce((acc, val, idx) => {
-    if(idx % 2 === 0)  acc[idx] = { white: val }
-    else  acc[idx - 1].black = val;
-
-    return acc;
-  }, []);
-  return (
-    <table className="table">
+    return (<table className="table">
       <thead>
         <tr>
           <th className={props.whiteTurn ? "active" : ""}>White</th>
@@ -21,12 +14,27 @@ export const Moves = (props) => {
         </tr>
       </thead>
       <tbody>
-        { groupMoves.map((m, i)=> <tr key={i}><td>{m.white}</td><td>{m.black}</td></tr>) }
+        { props.moves.map((m, i) => (<tr key={i}>
+          <td>{m.white}</td>
+          <td>{m.black}</td>
+          </tr>)) }
       </tbody>
     </table>
   );
 };
 
-export default connect(
-  (state = { game: { moves: [], whiteTurn: true }}) => state.game)
-(Moves);
+const initialState = {
+  game: {
+    moves: [],
+    whiteTurn: true
+  }
+};
+
+const selector = (state = initialState) => {
+  return {
+    whiteTurn: state.game.whiteTurn,
+    moves: groupMovesByColor(state.game.moves)
+  };
+};
+
+export default connect(selector)(Moves);
