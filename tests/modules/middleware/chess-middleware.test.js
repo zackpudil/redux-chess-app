@@ -1,9 +1,9 @@
 import sinon from 'sinon';
 import assert from 'assert';
 
-import * as squares from '~/modules/actions/squares';
-import * as pieces from '~/modules/actions/pieces';
-import * as game from '~/modules/actions/game';
+import * as squares from '~/modules/squares/actions';
+import * as pieces from '~/modules/pieces/actions';
+import * as game from '~/modules/game/actions';
 import * as chess from '~/chess/engine';
 
 import subject from '~/modules/middleware/chess-middleware';

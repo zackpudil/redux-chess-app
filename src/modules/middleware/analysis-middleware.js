@@ -13,9 +13,9 @@ import { ANALYZE_BOARD,
          CASTLE_KING_SIDE, 
          CASTLE_QUEEN_SIDE,
          castleKingSide, 
-         castleQueenSide } from '~/modules/actions/game';
+         castleQueenSide } from '~/modules/game/actions';
 
-import { addPiece, removePiece, checkSquare } from '~/modules/actions/squares';
+import { addPiece, removePiece, checkSquare } from '~/modules/squares/actions';
 import { wasKingCastle, wasQueenCastle, isKingInCheck, getSquaresOfPiece } from '~/chess/analysis';
 
 export default store => next => action => {

@@ -1,10 +1,10 @@
 import assert from 'assert';
 import sinon from 'sinon';
 
-import * as game from '~/modules/actions/game';
+import * as game from '~/modules/game/actions';
 import * as analyze from '~/chess/analysis';
 import * as board from '~/chess/board';
-import * as squares from '~/modules/actions/squares';
+import * as squares from '~/modules/squares/actions';
 
 import subject from '~/modules/middleware/analysis-middleware';
 

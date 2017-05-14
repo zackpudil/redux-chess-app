@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {initSquares} from '~/modules/actions/squares';
-import {routePiece, movePiece, takePiece, BLACK, NO_PIECE_ID} from '~/modules/actions/pieces';
+import {initSquares} from '~/modules/squares/actions';
+import {routePiece, movePiece, takePiece, BLACK, NO_PIECE_ID} from '~/modules/pieces/actions';
 import {Square} from './Square';
 
 export class Board extends React.Component {

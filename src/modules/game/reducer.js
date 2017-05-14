@@ -1,6 +1,6 @@
 /* Holds actions and constants that are related to analysis and move recording. Also updates state on who's turn it is.*/
 import { toMoveNotation } from '~/chess/analysis';
-import { ADD_MOVE } from '~/modules/actions/game';
+import { ADD_MOVE } from './actions';
 
 export default (state = { moves: [], whiteTurn: true }, action) => {
   switch(action.type) {

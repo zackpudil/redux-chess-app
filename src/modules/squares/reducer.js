@@ -8,7 +8,7 @@ import { HIGHLIGHT_SQUARE,
   CLEAR_HIGHLIGHTS,
   CLEAR_CHECK,
   INIT_SQUARES
-} from '~/modules/actions/squares';
+} from './actions';
 
 export const square = (state, action) => {
 	switch(action.type) {

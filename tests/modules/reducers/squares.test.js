@@ -4,9 +4,9 @@ import sinon from 'sinon';
 import * as board from '~/chess/board';
 import { HIGHLIGHT_SQUARE, CLEAR_HIGHLIGHTS, 
          INIT_SQUARES, SELECT_SQUARE, CHECK_SQUARE,
-         ADD_PIECE, REMOVE_PIECE } from '~/modules/actions/squares';
+         ADD_PIECE, REMOVE_PIECE } from '~/modules/squares/actions';
 
-import subject from '~/modules/reducers/squares';
+import subject from '~/modules/squares/reducer';
 
 describe('Squares', () => {
 	it('should exist.', () => assert.notEqual(subject, undefined));

@@ -1,6 +1,6 @@
 import assert from 'assert';
-import { ADD_TAKEN_PIECE } from '~/modules/actions/pieces';
-import subject from '~/modules/reducers/pieces';
+import { ADD_TAKEN_PIECE } from '~/modules/pieces/actions';
+import subject from '~/modules/pieces/reducer';
 
 describe('Pieces', () => {
   it('should not modify state on unsupported action', () => {
