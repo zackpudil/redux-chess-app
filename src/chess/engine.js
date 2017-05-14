@@ -3,8 +3,8 @@
   * Use moves to get all possible squares (even ones off board)
   * Remove/Add squares based on the outputs of rules
 */
-import { WHITE, BLACK } from '../modules/pieces';
-import { toSquare, toCoord, fromState, virtualMove } from './board';
+
+import { WHITE, BLACK, toSquare, toCoord, fromState, virtualMove } from './board';
 import { enforceBoundary, enforceLatteralJump, 
          enforceDiagnalJump, enforceTakenSquare,
          pawnCanTakeDiagnally, kingCastle } from './rules';

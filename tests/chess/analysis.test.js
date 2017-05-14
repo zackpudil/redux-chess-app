@@ -1,8 +1,14 @@
 import assert from 'assert';
-import { WHITE_KING_SQUARE, WHITE_K_AFTER_KING_CASTLE, WHITE_K_AFTER_QUEEN_CASTLE,
-         BLACK_KING_SQUARE, BLACK_K_AFTER_KING_CASTLE, BLACK_K_AFTER_QUEEN_CASTLE } from '~/modules/game';
+import { WHITE_KING_SQUARE, 
+         WHITE_K_AFTER_KING_CASTLE, 
+         WHITE_K_AFTER_QUEEN_CASTLE,
+         BLACK_KING_SQUARE, 
+         BLACK_K_AFTER_KING_CASTLE, 
+         BLACK_K_AFTER_QUEEN_CASTLE, 
+         initBoard, 
+         fromState, 
+         toState } from '~/chess/board';
 
-import { initBoard, fromState, toState } from '~/chess/board';
 import * as subject from '~/chess/analysis';
 
 describe('Analysis', () => {

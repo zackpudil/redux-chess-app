@@ -1,11 +1,10 @@
 import sinon from 'sinon';
 import assert from 'assert';
 
-import * as squares from '~/modules/squares';
-import * as pieces from '~/modules/pieces';
-import * as game from '~/modules/game';
+import * as squares from '~/modules/actions/squares';
+import * as pieces from '~/modules/actions/pieces';
+import * as game from '~/modules/actions/game';
 import * as chess from '~/chess/engine';
-import {ROUTE_PIECE, MOVE_PIECE, TAKE_PIECE} from '~/modules/pieces';
 
 import subject from '~/modules/middleware/chess-middleware';
 
@@ -35,7 +34,7 @@ describe('Chess middleware', () => {
 		});
 
 		it('should dispatch actions based on move engine.', () => {
-			let action = { type: ROUTE_PIECE, pieceId: 'p', squareId: 't1' };
+			let action = { type: pieces.ROUTE_PIECE, pieceId: 'p', squareId: 't1' };
 
 			let next = sinon.spy();
 			
@@ -56,7 +55,7 @@ describe('Chess middleware', () => {
 		var action, next;
 
 		beforeEach(() => {
-			action = { type: MOVE_PIECE, toSquareId: '2' };
+			action = { type: pieces.MOVE_PIECE, toSquareId: '2' };
 			next = sinon.spy();
 
 			sinon.spy(squares, 'clearHighlights');
@@ -131,7 +130,7 @@ describe('Chess middleware', () => {
 		var action, next;
 
 		beforeEach(() => {
-			action = { type: TAKE_PIECE, toSquareId: '2' };
+			action = { type: pieces.TAKE_PIECE, toSquareId: '2' };
 			next = sinon.spy();
 
 			sinon.spy(squares, 'clearHighlights');

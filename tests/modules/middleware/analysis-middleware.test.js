@@ -1,12 +1,10 @@
 import assert from 'assert';
 import sinon from 'sinon';
 
-import { REMOVE_PIECE, ADD_PIECE } from '~/modules/squares';
-import { WHITE, BLACK } from '~/modules/pieces';
-import * as game from '~/modules/game';
+import * as game from '~/modules/actions/game';
 import * as analyze from '~/chess/analysis';
 import * as board from '~/chess/board';
-import * as squares from '~/modules/squares';
+import * as squares from '~/modules/actions/squares';
 
 import subject from '~/modules/middleware/analysis-middleware';
 
@@ -108,12 +106,12 @@ describe('Analysis middleware', () => {
       let next = sinon.spy();
 
       subject()(next)(actionWhite);
-      assert(next.calledWith({ type: REMOVE_PIECE, squareId: game.WHITE_K_ROOK_SQUARE }));
-      assert(next.calledWith({ type: ADD_PIECE, squareId: game.WHITE_R_AFTER_KING_CASTLE, pieceId: 'R', color: WHITE }));
+      assert(next.calledWith({ type: squares.REMOVE_PIECE, squareId: board.WHITE_K_ROOK_SQUARE }));
+      assert(next.calledWith({ type: squares.ADD_PIECE, squareId: board.WHITE_R_AFTER_KING_CASTLE, pieceId: 'R', color: board.WHITE }));
       
       subject()(next)(actionBlack);
-      assert(next.calledWith({ type: REMOVE_PIECE, squareId: game.BLACK_K_ROOK_SQUARE }));
-      assert(next.calledWith({ type: ADD_PIECE, squareId: game.BLACK_R_AFTER_KING_CASTLE, pieceId: 'r', color: BLACK }));
+      assert(next.calledWith({ type: squares.REMOVE_PIECE, squareId: board.BLACK_K_ROOK_SQUARE }));
+      assert(next.calledWith({ type: squares.ADD_PIECE, squareId: board.BLACK_R_AFTER_KING_CASTLE, pieceId: 'r', color: board.BLACK }));
     });
   });
 
@@ -125,12 +123,12 @@ describe('Analysis middleware', () => {
       let next = sinon.spy();
 
       subject()(next)(actionWhite);
-      assert(next.calledWith({ type: REMOVE_PIECE, squareId: game.WHITE_Q_ROOK_SQUARE }));
-      assert(next.calledWith({ type: ADD_PIECE, squareId: game.WHITE_R_AFTER_QUEEN_CASTLE, pieceId: 'R', color: WHITE }));
+      assert(next.calledWith({ type: squares.REMOVE_PIECE, squareId: board.WHITE_Q_ROOK_SQUARE }));
+      assert(next.calledWith({ type: squares.ADD_PIECE, squareId: board.WHITE_R_AFTER_QUEEN_CASTLE, pieceId: 'R', color: board.WHITE }));
       
       subject()(next)(actionBlack);
-      assert(next.calledWith({ type: REMOVE_PIECE, squareId: game.BLACK_Q_ROOK_SQUARE }));
-      assert(next.calledWith({ type: ADD_PIECE, squareId: game.BLACK_R_AFTER_QUEEN_CASTLE, pieceId: 'r', color: BLACK }));
+      assert(next.calledWith({ type: squares.REMOVE_PIECE, squareId: board.BLACK_Q_ROOK_SQUARE }));
+      assert(next.calledWith({ type: squares.ADD_PIECE, squareId: board.BLACK_R_AFTER_QUEEN_CASTLE, pieceId: 'r', color: board.BLACK }));
     });
   });
 

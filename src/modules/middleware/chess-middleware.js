@@ -1,7 +1,7 @@
 /* Middleware, dispatches multiple actions for routing (highlighting possible move squares for selected piece), moving and taking pieces */
-import { ROUTE_PIECE, MOVE_PIECE, TAKE_PIECE, addTakenPiece } from '../pieces';
-import { highlightSquare, selectSquare, clearHighlights, clearCheck, addPiece, removePiece } from '../squares';
-import { analyzeBoard, addMove } from '../game';
+import { ROUTE_PIECE, MOVE_PIECE, TAKE_PIECE, addTakenPiece } from '~/modules/actions/pieces';
+import { highlightSquare, selectSquare, clearHighlights, clearCheck, addPiece, removePiece } from '~/modules/actions/squares';
+import { analyzeBoard, addMove } from '~/modules/actions/game';
 import engine from '~/chess/engine';
 
 export default store => next => action => {

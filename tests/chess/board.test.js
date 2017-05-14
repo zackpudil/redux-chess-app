@@ -1,7 +1,6 @@
 import assert from 'assert';
 import sinon from 'sinon';
 
-import {WHITE, BLACK} from '~/modules/pieces';
 import * as subject from '~/chess/board';
 
 describe('Board', () => {
@@ -19,12 +18,12 @@ describe('Board', () => {
 			let state = subject.toState(board);
 
 			assert.deepEqual(state.sort(), [
-				{ id: 'h1', pieceId: 'r', color: BLACK },
-				{ id: 'g1', pieceId: 'k', color: BLACK },
-				{ id: 'h2', pieceId: '_', color: BLACK },
-				{ id: 'g2', pieceId: 'K', color: WHITE },
-				{ id: 'h3', pieceId: 'q', color: BLACK },
-				{ id: 'g3', pieceId: 'Q', color: WHITE }
+				{ id: 'h1', pieceId: 'r', color: subject.BLACK },
+				{ id: 'g1', pieceId: 'k', color: subject.BLACK },
+				{ id: 'h2', pieceId: '_', color: subject.BLACK },
+				{ id: 'g2', pieceId: 'K', color: subject.WHITE },
+				{ id: 'h3', pieceId: 'q', color: subject.BLACK },
+				{ id: 'g3', pieceId: 'Q', color: subject.WHITE }
 			].sort());
 		});
 	});
@@ -34,12 +33,12 @@ describe('Board', () => {
 
 		it('should ui state to logical board', () => {
 			let uiState = [
-				{ id: 'a1', pieceId: 'r', color: BLACK },
-				{ id: 'b1', pieceId: 'k', color: BLACK },
-				{ id: 'a2', pieceId: '_', color: BLACK },
-				{ id: 'b2', pieceId: 'K', color: WHITE },
-				{ id: 'a3', pieceId: 'q', color: BLACK },
-				{ id: 'b3', pieceId: 'Q', color: WHITE }
+				{ id: 'a1', pieceId: 'r', color: subject.BLACK },
+				{ id: 'b1', pieceId: 'k', color: subject.BLACK },
+				{ id: 'a2', pieceId: '_', color: subject.BLACK },
+				{ id: 'b2', pieceId: 'K', color: subject.WHITE },
+				{ id: 'a3', pieceId: 'q', color: subject.BLACK },
+				{ id: 'b3', pieceId: 'Q', color: subject.WHITE }
 			];
 
 			let board = subject.fromState(uiState);

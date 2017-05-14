@@ -1,9 +1,7 @@
 /* holds all the rules for piece movement such as: cannot jump pieces, cannot take same color pieces, and special rules for pawns and king
  * enforce functions returns (new) array with squares that break rules removed.
  * adding functions return new squares for special rules, and should be concated with passed move */
-import { NO_PIECE_ID } from '../modules/pieces';
-import { WHITE_KING_SQUARE, BLACK_KING_SQUARE } from '../modules/game';
-import {toCoord} from './board';
+import {toCoord, WHITE_KING_SQUARE, BLACK_KING_SQUARE, NO_PIECE_ID } from './board';
 
 // helper functions, subjects coords by one when accessing logical board (multi-dimensional array).
 const toIndex = (ms) => ms.map((m) => ({ x: m.x - 1, y: m.y - 1 }));

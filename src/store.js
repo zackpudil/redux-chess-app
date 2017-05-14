@@ -2,9 +2,9 @@ import { combineReducers, createStore, compose, applyMiddleware } from 'redux';
 import chess from './modules/middleware/chess-middleware';
 import analysis from './modules/middleware/analysis-middleware';
 
-import squares from './modules/squares';
-import pieces from './modules/pieces';
-import game from './modules/game';
+import squares from './modules/reducers/squares';
+import pieces from './modules/reducers/pieces';
+import game from './modules/reducers/game';
 
 const rootReducer = combineReducers({
   squares: squares, // main ui slice of the state.

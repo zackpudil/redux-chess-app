@@ -6,13 +6,17 @@ import {WHITE_K_ROOK_SQUARE,
         WHITE_Q_ROOK_SQUARE, 
         WHITE_R_AFTER_QUEEN_CASTLE,
         BLACK_Q_ROOK_SQUARE,
-        BLACK_R_AFTER_QUEEN_CASTLE } from '../game';
+        BLACK_R_AFTER_QUEEN_CASTLE,
+        fromState } from '~/chess/board';
 
-import { ANALYZE_BOARD, CASTLE_KING_SIDE, CASTLE_QUEEN_SIDE } from '../game';
-import { castleKingSide, castleQueenSide } from '../game';
-import { addPiece, removePiece, checkSquare } from '../squares';
+import { ANALYZE_BOARD, 
+         CASTLE_KING_SIDE, 
+         CASTLE_QUEEN_SIDE,
+         castleKingSide, 
+         castleQueenSide } from '~/modules/actions/game';
+
+import { addPiece, removePiece, checkSquare } from '~/modules/actions/squares';
 import { wasKingCastle, wasQueenCastle, isKingInCheck, getSquaresOfPiece } from '~/chess/analysis';
-import { fromState } from '~/chess/board';
 
 export default store => next => action => {
   switch(action.type) {

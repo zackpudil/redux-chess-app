@@ -1,10 +1,12 @@
 import assert from 'assert';
 import sinon from 'sinon';
+
 import * as board from '~/chess/board';
-import { NO_PIECE_ID, WHITE } from '~/modules/pieces';
-import subject, { HIGHLIGHT_SQUARE, CLEAR_HIGHLIGHTS, 
-                  INIT_SQUARES, SELECT_SQUARE, CHECK_SQUARE,
-                  ADD_PIECE, REMOVE_PIECE } from '~/modules/squares';
+import { HIGHLIGHT_SQUARE, CLEAR_HIGHLIGHTS, 
+         INIT_SQUARES, SELECT_SQUARE, CHECK_SQUARE,
+         ADD_PIECE, REMOVE_PIECE } from '~/modules/actions/squares';
+
+import subject from '~/modules/reducers/squares';
 
 describe('Squares', () => {
 	it('should exist.', () => assert.notEqual(subject, undefined));
@@ -141,12 +143,12 @@ describe('Squares', () => {
 				{ id: '2' }
 			];
 
-			let test = subject(state, { type: ADD_PIECE, squareId: '1', pieceId: 'test', color:  WHITE});
+			let test = subject(state, { type: ADD_PIECE, squareId: '1', pieceId: 'test', color:  board.WHITE});
 
 			assert.notEqual(state, test);
 			assert.deepEqual(test.sort(),
 				[
-					{ id: '1', pieceId: 'test', color: WHITE },
+					{ id: '1', pieceId: 'test', color: board.WHITE },
 					{ id: '2' }
 				].sort());
 		});
@@ -165,7 +167,7 @@ describe('Squares', () => {
 			assert.deepEqual(test.sort(),
 				[
 					{ id: '1', pieceId: 't' },
-					{ id: '2', pieceId: NO_PIECE_ID }
+					{ id: '2', pieceId: board.NO_PIECE_ID }
 				].sort());
 		});
 	});
