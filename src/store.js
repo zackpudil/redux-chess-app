@@ -1,6 +1,7 @@
 import { combineReducers, createStore, compose, applyMiddleware } from 'redux';
 import chess from './modules/middleware/chess-middleware';
 import analysis from './modules/middleware/analysis-middleware';
+import click from './modules/middleware/click-middleware';
 
 import squares from './modules/squares/reducer';
 import pieces from './modules/pieces/reducer';
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
 });
 
 let composedMiddleware = compose(
+  applyMiddleware(click), // handles click events on the squares.
 	applyMiddleware(chess), // handles the move, take and route actions.
   applyMiddleware(analysis) // handles specialty cases like castling, checking and pawn promotion.
 );

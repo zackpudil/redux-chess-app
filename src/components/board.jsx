@@ -1,7 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {initSquares} from '~/modules/squares/actions';
-import {routePiece, movePiece, takePiece, BLACK, NO_PIECE_ID} from '~/modules/pieces/actions';
+import {initSquares, squareClick} from '~/modules/squares/actions';
 import {Square} from './Square';
 
 export class Board extends React.Component {
@@ -14,9 +13,7 @@ export class Board extends React.Component {
 		return (
 			<div className="board">
 				{this.props.squares.slice().reverse().map((s, i) => <Square key={i} {...s} 
-					routePiece={this.props.routePiece} 
-          movePiece={this.props.movePiece} 
-          takePiece={this.props.takePiece }
+          squareClick={this.props.squareClick}
           whiteTurn={this.props.whiteTurn }/>)}
 			</div>
 		);
@@ -27,7 +24,7 @@ export class Board extends React.Component {
 export default connect(
   (state = { squares: [], game: { whiteTurn: true } }) => 
     ({ squares: state.squares, whiteTurn: state.game.whiteTurn }), 
-  { routePiece, movePiece, takePiece, initSquares})
+  { squareClick, initSquares})
 (Board);
 
 

@@ -21,26 +21,10 @@ export const Square = (props) => {
 	squareClass += props.selected ? " selected" : "";
   squareClass += props.check ? " checked" : "";
 
-  // piece click, handles what actions to call based on its own state, and state of board.
   // MJ note this logic can be lifted up into parent component or in mapDispatchToProps in board.jsx
   //all of this logic is based on props being passed in and could be centralized in the redux layer.
   //doing so removes critical app logic from a component and would be easier to test
-	let pieceClick = () => {
-    if(props.pieceId === NO_PIECE_ID) {  // if square does not have a piece, dispatch move action.  If no piece selected before it will clear highlights.
-			props.movePiece(props.id);
-    } else {
-      if(props.highlighted)
-        props.takePiece(props.id);
-      else { // if the square is not highlighted, then we want a route action.
-        // this ensure that route action is called if it's the color's turn.
-        if(props.whiteTurn && props.color === WHITE)
-			    props.routePiece(props.id, props.pieceId);
-        else if(!props.whiteTurn && props.color === BLACK)
-          props.routePiece(props.id, props.pieceId);
-      }
-    }
-	};
-
+	let pieceClick = props.squareClick.bind(null, props.id, props.pieceId, props.color);
 	return (
 		<div id={props.id} className={squareClass}> 
       <Piece pieceId={props.pieceId} color={props.color}  pieceClick={pieceClick} />

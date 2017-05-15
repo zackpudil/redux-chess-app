@@ -1,5 +1,6 @@
 import { BLACK, WHITE } from '~/chess/board';
 
+export const SQUARE_CLICK = 'chess/squares/square_click';
 export const HIGHLIGHT_SQUARE = 'chess/squares/hightlight_square';
 export const SELECT_SQUARE = 'chess/squares/select_square';
 export const CHECK_SQUARE = 'chess/squares/check_square';
@@ -8,6 +9,13 @@ export const ADD_PIECE = 'chess/squares/add_piece';
 export const REMOVE_PIECE = 'chess/squares/remove_piece';
 export const CLEAR_HIGHLIGHTS = 'chess/squares/clear_highlighs';
 export const INIT_SQUARES = 'chess/squares/init';
+
+export const squareClick = (squareId, pieceId, color) => ({
+  type: SQUARE_CLICK,
+  squareId,
+  pieceId,
+  color
+});
 
 // set highlighted property to true for square id.
 export const highlightSquare = (squareId) => ({   
