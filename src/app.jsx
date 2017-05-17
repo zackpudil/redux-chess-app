@@ -13,7 +13,7 @@ const App = () => (
 	<Provider store={Store}>
     <div className="container">
       <div className="row">
-        <div className="col-md-5">
+        <div className="col-md-8">
           <TakenPieces color={WHITE} />
           <Board />
           <TakenPieces color={BLACK} />

@@ -14,14 +14,14 @@ li {
 }
 
 div.board {
-	margin: 10px;
-	width: 448px;
+	margin: 20px;
+	width: 672px;
   overflow: auto;
 }
 
 div.board div {
-	width: 50px;
-	height: 50px;
+	width: 75px;
+	height: 75px;
 	outline: 1px solid;
 	float: left;
 }
@@ -39,9 +39,15 @@ div.board  div:nth-child(16n+16) {
 
 a.piece {
 	display: inline-block;
-	margin: 10px 15px 15px 10px;
+	margin: 15px 22.5px 22.5px 15px;
 	padding: 5px 10px 5px 10px;
-	border-radius: 70px;
+	border-radius: 105px;
+  font-size: 30px;
+}
+
+a.piece.no-piece {
+  width: 75px;
+  height: 75px;
 }
 
 a.piece.white {
@@ -81,7 +87,6 @@ ul.takenPieces {
   padding: 0;
   width: 448px;
   height: 60px;
-  overflow-x: scroll;
 }
 
 ul.takenPieces li {
