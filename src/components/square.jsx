@@ -24,9 +24,18 @@ export const Piece = (props) => {
   pieceClass += pieceId === NO_PIECE_ID 
     ? "no-piece" : color === BLACK ? 'black' : 'white';
 
+  let pd = (ev) => {
+    ev.preventDefault();
+  };
+
   return (
     <a href="javascript:void(0)" className={pieceClass}
-      onClick={pieceClick}>{pieceIdToUnicode[pieceId]}</a>
+      draggable="true"
+      onClick={pieceClick}
+      onDrop={pieceClick}
+      onDragOver={pd}
+      onDragEnter={pd}
+      onDragStart={pieceClick}>{pieceIdToUnicode[pieceId]}</a>
   );
 };
 
