@@ -19,31 +19,29 @@ export const pieceIdToUnicode = {
 
 // render the piece, which in html is an a tag.
 export const Piece = (props) => {
+  const { pieceId, color, pieceClick } = props;
   let pieceClass = 'piece ';
-
-  pieceClass += props.pieceId === NO_PIECE_ID 
-    ? "no-piece" : props.color === BLACK ? 'black' : 'white';
+  pieceClass += pieceId === NO_PIECE_ID 
+    ? "no-piece" : color === BLACK ? 'black' : 'white';
 
   return (
     <a href="javascript:void(0)" className={pieceClass}
-      onClick={props.pieceClick}>{pieceIdToUnicode[props.pieceId]}</a>
+      onClick={pieceClick}>{pieceIdToUnicode[pieceId]}</a>
   );
 };
 
 export const Square = (props) => {
-  let squareClass = props.highlighted 
-    ? props.pieceId === NO_PIECE_ID 
-      ? "highlighted" : "highlighted-red" : "";
-	squareClass += props.selected ? " selected" : "";
-  squareClass += props.check ? " checked" : "";
+  const { id, highlighted, pieceId, selected, check, color, squareClick } = props;
+  let squareClass = highlighted ? "highlighted" : "";
+  squareClass += pieceId !== NO_PIECE_ID ? "-red" : "";
+	squareClass += selected ? " selected" : "";
+  squareClass += check ? " checked" : "";
 
-  // MJ note this logic can be lifted up into parent component or in mapDispatchToProps in board.jsx
-  //all of this logic is based on props being passed in and could be centralized in the redux layer.
-  //doing so removes critical app logic from a component and would be easier to test
-	let pieceClick = props.squareClick.bind(null, props.id, props.pieceId, props.color);
+	let pieceClick = squareClick.bind(null, id, pieceId, color);
+
 	return (
-		<div id={props.id} className={squareClass}> 
-      <Piece pieceId={props.pieceId} color={props.color}  pieceClick={pieceClick} />
+		<div id={id} className={squareClass}> 
+      <Piece pieceId={pieceId} color={color}  pieceClick={pieceClick} />
 		</div>
 	);
 };
