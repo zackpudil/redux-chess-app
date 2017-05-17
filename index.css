@@ -14,9 +14,9 @@ li {
 }
 
 div.board {
-	margin: 20px;
+	margin: 30px 20px 20px 20px;
 	width: 672px;
-  overflow: auto;
+  overflow: hidden;
 }
 
 div.board div {
@@ -43,6 +43,23 @@ a.piece {
 	padding: 5px 10px 5px 10px;
 	border-radius: 105px;
   font-size: 30px;
+  text-decoration: none;
+}
+
+a.piece:link {
+  text-decoration: none
+}
+
+a.piece:visited {
+  text-decoration: none
+}
+
+a.piece:hover {
+  text-decoration: none;
+}
+
+a.piece:active {
+  text-decoration: none;
 }
 
 a.piece.no-piece {
